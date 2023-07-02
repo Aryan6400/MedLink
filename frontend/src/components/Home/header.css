@@ -1,0 +1,78 @@
+header {
+    background-color: #119855;
+    margin: auto -16px;
+    padding: 5px 32px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    color: #fff;
+    font-family: 'Architects Daughter', cursive;
+    font-weight: 200;
+}
+
+.head {
+    display: inline-block;
+}
+
+.head-link {
+    text-decoration: none;
+    color: white;
+}
+
+.login-link,
+.signup-link,
+.logout-link,
+.about-link,
+.profile-link,
+.username {
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.user-icon{
+    position: absolute;
+    right: 20px;
+    top: 37px;
+    color: #fff;
+}
+
+.username {
+    position: absolute;
+    right: 20px;
+    top: 40px;
+    margin: 0 15px;
+    color: white;
+    width: 76px;
+    text-align: left;
+    font-size: 1.1rem;
+}
+
+.about {
+    position: absolute;
+    right: 235px;
+    top: 40px;
+    margin: 0 15px;
+}
+
+.login {
+    position: absolute;
+    right: 125px;
+    top: 40px;
+    margin: 0 15px;
+}
+
+.signup {
+    position: absolute;
+    right: 20px;
+    top: 40px;
+    margin: 0 15px;
+}
+
+.logout {
+    position: absolute;
+    right: 135px;
+    top: 40px;
+    margin: 0 15px;
+}

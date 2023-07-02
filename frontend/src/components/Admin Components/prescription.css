@@ -1,0 +1,52 @@
+.add-prescription {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 50px rgb(181, 181, 181);
+    width: 50%;
+    margin: 10px auto;
+    padding: 50px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: repeat(8, 1fr);
+    align-items: center;
+}
+.add-div {
+    margin-top: 5px;
+    grid-area: 8/1/9/2;
+}
+.close-prescription-div {
+    margin-top: 5px;
+    grid-area: 8/2/9/3;
+}
+
+.add-dropzone{
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 2px;
+    grid-area: 7/2/8/3;
+}
+
+.prescription-card{
+    box-shadow: 0 0 3px rgb(173, 173, 173);
+    width: 70%;
+    height: 70%;
+    margin: auto;
+    border-radius: 5px;
+}
+
+#image{
+    text-align: center;
+}
+
+.prescription-card img{
+    width: 80%;
+    height: 80%;
+}
+.prescription-details{
+    margin: 40px 30px;
+    padding: 5px;
+}
+.toggle-btn{
+    cursor: pointer;
+}

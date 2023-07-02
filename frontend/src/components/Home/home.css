@@ -1,0 +1,31 @@
+.home-container{
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    gap: 10px;
+}
+
+.left{
+    position: -webkit-sticky;
+    position: sticky;
+    text-align: center;
+    top: 50px;
+    height: 600px;
+    width: 60%;
+    margin: 60px 0 0 100px;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #020260;
+    background-color: #00538a;
+}
+
+.add-prescription-btn{
+    width: 25%;
+    margin: 10px auto;
+    text-align: center;
+    padding: 7px;
+    font-size: 1.2rem;
+    background-color: rgb(136, 186, 51);
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgb(161, 222, 8);
+    cursor: pointer;
+}

@@ -1,0 +1,61 @@
+.error {
+    color: red;
+    font-size: 0.9rem;
+}
+
+.login-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 5fr;
+    gap: 10px;
+    width: 42%;
+    margin: 50px auto;
+    justify-content: center;
+    align-items: center;
+}
+.adminlogin-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 5fr;
+    gap: 10px;
+    width: 42%;
+    margin: 50px auto;
+    justify-content: center;
+    align-items: center;
+}
+.adminlogin-div {
+    margin-top: 5px;
+    grid-area: 3/2/4/3;
+}
+#submit-btn {
+    color: white;
+    background-color: #5b1eb7;
+    box-shadow: 0 0 3px #542f8c;
+}
+
+.login-div {
+    margin-top: 5px;
+    grid-area: 3/2/4/3;
+}
+
+.radio-btns {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.radio {
+    margin: 0 5px;
+}
+
+label {
+    font-size: 1.1rem;
+}
+
+.input {
+    width: 100%;
+}
+
+.register h1{
+    margin: 5rem auto 0;
+    text-align: center;
+}

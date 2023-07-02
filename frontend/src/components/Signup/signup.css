@@ -1,0 +1,74 @@
+.error {
+    color: red;
+    font-size: 0.9rem;
+}
+
+.signup-container {
+    width: 42%;
+    margin: 50px auto;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: repeat(12, 1fr);
+}
+
+.signup-div {
+    margin-top: 5px;
+    grid-area: 13/2/14/3;
+}
+
+.goto-admin-register{
+    grid-area: 14/2/15/3;
+}
+.dropzone{
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 2px;
+    grid-area: 12/2/13/3;
+}
+.adminform-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 5fr;
+    gap: 10px;
+    width: 42%;
+    margin: 50px auto;
+    justify-content: center;
+    align-items: center;
+}
+.adminregister-div{
+    margin-top: 5px;
+    grid-area: 7/2/8/3;
+}
+
+.goto-user-register{
+    grid-area: 8/2/9/3;
+}
+
+#submit-btn {
+    color: white;
+    background-color: #5b1eb7;
+    box-shadow: 0 0 3px #542f8c;
+}
+
+.radio-btns {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.radio {
+    margin: 0 5px;
+}
+
+label {
+    font-size: 1.1rem;
+}
+
+.input {
+    width: 100%;
+}
+
+.register h1{
+    margin: 5rem auto 0;
+    text-align: center;
+}
