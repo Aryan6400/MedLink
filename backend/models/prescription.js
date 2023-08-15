@@ -10,8 +10,9 @@ const prescriptionSchema = new mongoose.Schema({
     type: String,
     default: ""
   },
-  diagnosis: [String],
-  tests: [String],
+  diagnosis: String,
+  tests: String,
+  diabetes: String,
 }, {timestamps:true}
 )
 
