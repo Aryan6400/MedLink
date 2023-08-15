@@ -12,7 +12,6 @@ function EditForm(props) {
         gender: props.user.gender,
         Mob: props.user.Mob,
         address: props.user.address,
-        state: props.user.state,
         pincode: props.user.pincode,
         DOB: props.user.DOB,
     })
@@ -27,12 +26,14 @@ function EditForm(props) {
         });
     }
     function onSubmit() {
-        database.patchData(`http://localhost:5000/user-${props.user.username}`, user).then(data => {
-            if (data[0].status) {
-                props.updateInformation(data[1]);
-                props.onClick();
-            }
-        })
+        // database.patchData(`http://localhost:5000/user-${props.user.username}`, user).then(data => {
+        //     if (data[0].status) {
+        //         props.updateInformation(data[1]);
+        //         props.onClick();
+        //     }
+        // })
+        props.updateInformation(user);
+        props.onClick();
     }
     function Close() {
         props.onClick();
@@ -43,24 +44,22 @@ function EditForm(props) {
             <form className="edit-form">
 
                 <div className='name-div'>
-                    <label>Name: </label>
-                    <MuiTextField className="input" onChange={handleChange} label="Name" name="name" value={user.name} />
+                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Name" name="name" value={user.name} />
                 </div>
 
                 <div className='name-div'>
-                    <label>Email: </label>
-                    <MuiTextField className="input" onChange={handleChange} label="Email" name="email" value={user.email} />
+                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Email" name="email" value={user.email} />
                 </div>
 
                 <div className='name-div'>
-                    <label>Mobile No: </label>
-                    <MuiTextField className="input" onChange={handleChange} label="Mobile No" name="Mob" value={user.Mob} />
+                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Mobile No" name="Mob" value={user.Mob} />
                 </div>
 
                 <FormGroup className='gender-div'>
                     <label>Gender: </label>
                     <RadioGroup
                         name="gender"
+                        
                     >
                         <div className='radio-btns'>
                             <FormControlLabel
@@ -86,28 +85,20 @@ function EditForm(props) {
                 </FormGroup>
 
                 <div className='name-div'>
-                    <label>Age: </label>
-                    <MuiTextField className="input" onChange={handleChange} label="Age" name="age" value={user.age} />
+                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Age" name="age" value={user.age} />
+                </div>
+
+                <div className='address-div'>
+                    <MuiTextField className="edit-profile-input" onChange={handleChange} multiline rows={2} label="Address" name="address" value={user.address} />
+                </div>
+
+
+                <div className='name-div'>
+                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Pincode" name="pincode" value={user.pincode} />
                 </div>
 
                 <div className='name-div'>
-                    <label>Address: </label>
-                    <MuiTextField className="input" onChange={handleChange} multiline rows={2} label="Address" name="address" value={user.address} />
-                </div>
-
-                <div className='name-div'>
-                    <label>State: </label>
-                    <MuiTextField className="input" onChange={handleChange} label="State" name="state" value={user.state} />
-                </div>
-
-                <div className='name-div'>
-                    <label>Pincode: </label>
-                    <MuiTextField className="input" onChange={handleChange} label="Pincode" name="pincode" value={user.pincode} />
-                </div>
-
-                <div className='name-div'>
-                    <label>DOB: </label>
-                    <MuiTextField className="input" onChange={handleChange} label="DOB" name="DOB" value={user.DOB} />
+                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="DOB" name="DOB" value={user.DOB} />
                 </div>
                 <div className='submit-div'>
                     <Button onClick={onSubmit} id='submit-btn'>

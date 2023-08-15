@@ -1,26 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 import database from "../database";
 import "./header.css"
 import PersonIcon from '@mui/icons-material/Person';
 const root = "http://localhost:3000";
 
 function Header() {
-  function logOut() {
+  const [isAdmin, setAdmin] = useState(false);
+  const [isUser, setUser] = useState(false);
+  useEffect(() => {
+    const admin = localStorage.getItem("admin");
+    const user = localStorage.getItem("patient");
+    if (admin) setAdmin(true);
+    else if (user) setUser(true);
+  }, []);
+
+  function logout() {
     localStorage.clear();
-    window.location.href = root+"/Login";
+    // setAdmin(false);
+    // setUser(false);
+    window.location.href = root + "/login";
   }
-  const auth = localStorage.getItem("patient");
+
   return (
     <header>
-      <div>
-        <h1 className="head"><Link className="head-link" to={auth ? "/" : "/admin"}>MedLink</Link></h1>
-        <p className="about"><Link className="about-link" to="/about">About</Link></p>
-        {auth ? <p className="username"><Link className="profile-link" to="/user-profile">{JSON.parse(auth).name.slice(0,8)}</Link></p> : null}
-        {auth ? <PersonIcon className="user-icon" /> : null}
-        {!auth ? <p className="login"><Link className="login-link" to="/Login">Login</Link></p> : null}
-        {!auth ? <p className="signup"><Link className="signup-link" to="/SignUp">SignUp</Link></p> : null}
-        {auth ? <p className="logout"><Link onClick={logOut} className="logout-link" to="/Login">LogOut</Link></p> : null}
+      <div className="header-bar">
+        <h1 className="head"><Link className="head-link" to="/home">MedLink</Link></h1>
+        <div className="navbar">
+          <ul className="navbar-list">
+            <li className="nav-items">
+              <Link className="nav-links" to="/about">About</Link>
+            </li>
+            {isUser && <li className="nav-items">
+              <Link className="nav-links" to="/user-profile">Patient</Link>
+            </li>}
+            {isAdmin && <li className="nav-items">
+              <Link className="nav-links" to="/admin-profile">Admin</Link>
+            </li>}
+            {isAdmin || isUser ? <li className="nav-items">
+              <PersonIcon className="nav-links" />
+            </li> : null}
+            {!isAdmin && !isUser ? <li className="nav-items">
+              <Link className="nav-links" to="/login">Login</Link>
+            </li> : null}
+            {isAdmin || isUser ? <li className="nav-items">
+              <Link className="nav-links" onClick={logout}>LogOut</Link>
+            </li> : null}
+          </ul>
+        </div>
       </div>
     </header>
   );

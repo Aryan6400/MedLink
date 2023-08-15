@@ -1,78 +1,48 @@
 header {
-    background-color: #119855;
-    margin: auto -16px;
-    padding: 5px 32px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    background-color: white;
+    /* box-shadow: 0 1px 0 #f8f1f1; */
+    margin: auto;
+    padding: 20px 32px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.header-bar{
+    display: flex;
+    justify-content: space-between;
 }
 
 header h1 {
-    color: #fff;
     font-family: 'Architects Daughter', cursive;
-    font-weight: 200;
-}
-
-.head {
+    font-weight: 700;
+    margin: 0;
     display: inline-block;
 }
 
 .head-link {
     text-decoration: none;
-    color: white;
+    color: #4A536B;
 }
 
-.login-link,
-.signup-link,
-.logout-link,
-.about-link,
-.profile-link,
-.username {
+.navbar{
+    display: inline-block;
+}
+
+.navbar-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin: 0;
+    list-style: none;
+}
+
+.nav-items {
+    margin: 10px 20px;
+    font-size: 1.15rem;
+}
+
+.nav-links{
     text-decoration: none;
-    color: white;
-    font-size: 1.1rem;
-}
-
-.user-icon{
-    position: absolute;
-    right: 20px;
-    top: 37px;
-    color: #fff;
-}
-
-.username {
-    position: absolute;
-    right: 20px;
-    top: 40px;
-    margin: 0 15px;
-    color: white;
-    width: 76px;
-    text-align: left;
-    font-size: 1.1rem;
-}
-
-.about {
-    position: absolute;
-    right: 235px;
-    top: 40px;
-    margin: 0 15px;
-}
-
-.login {
-    position: absolute;
-    right: 125px;
-    top: 40px;
-    margin: 0 15px;
-}
-
-.signup {
-    position: absolute;
-    right: 20px;
-    top: 40px;
-    margin: 0 15px;
-}
-
-.logout {
-    position: absolute;
-    right: 135px;
-    top: 40px;
-    margin: 0 15px;
+    color: #61C0BF;
 }

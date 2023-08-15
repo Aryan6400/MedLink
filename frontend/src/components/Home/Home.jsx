@@ -5,15 +5,17 @@ import "./home.css"
 import { useEffect } from "react";
 
 function Home() {
-    const navigate = useNavigate();
-    useEffect(() => {
-        let auth = localStorage.getItem("patient");
-        if (!auth) navigate('/SignUp')
-    }, []);
+    // const navigate = useNavigate();
+    // useEffect(() => {
+    //     let auth = localStorage.getItem("patient");
+    //     if (!auth) navigate('/SignUp')
+    // }, []);
     return (
         <div className="home-container">
             <div className="left">
-                <UserPanel />
+                <div className="left-innerdiv">
+                    <UserPanel />
+                </div>
             </div>
             <div className="center">
                 <div className="middle">

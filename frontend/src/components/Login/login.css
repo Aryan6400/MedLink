@@ -1,3 +1,16 @@
+.login h2,
+.admin-login h2 {
+    margin: 5rem auto 0;
+    text-align: center;
+}
+
+#login-paper{
+    width: 60%;
+    margin: auto;
+    padding: 1px 30px;
+    box-shadow: 0px 3px 5px -1px #4A536B, 0px 6px 10px 0px #4A536B, 0px 1px 18px 0px #4A536B;
+}
+
 .error {
     color: red;
     font-size: 0.9rem;
@@ -6,36 +19,59 @@
 .login-container {
     display: grid;
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr;
     gap: 10px;
-    width: 42%;
+    width: 80%;
     margin: 50px auto;
     justify-content: center;
     align-items: center;
 }
+
 .adminlogin-container {
     display: grid;
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr;
     gap: 10px;
-    width: 42%;
+    width: 80%;
     margin: 50px auto;
     justify-content: center;
     align-items: center;
 }
+
 .adminlogin-div {
     margin-top: 5px;
-    grid-area: 3/2/4/3;
+    grid-area: 3/1/4/2;
 }
-#submit-btn {
+
+.to-register-div, .to-admin-register-div {
+    margin-top: 5px;
+    grid-area: 4/1/5/2;
+    font-size: 1.1rem;
+}
+
+.to-admin-register-div a, .to-register-div a {
+    text-decoration: none;
+    color: #61C0BF;
+}
+
+.to-admin-register-div a:hover, .to-register-div a:hover {
+    border-bottom: 2px solid #61C0BF;
+}
+
+#login-btn {
     color: white;
-    background-color: #5b1eb7;
-    box-shadow: 0 0 3px #542f8c;
+    background-color: #61C0BF;
+    box-shadow: 0 0 3px #61C0BF;
+}
+#admin-login-btn {
+    color: white;
+    background-color: #61C0BF;
+    box-shadow: 0 0 3px #61C0BF;
 }
 
 .login-div {
     margin-top: 5px;
-    grid-area: 3/2/4/3;
+    grid-area: 3/1/4/2;
 }
 
 .radio-btns {
@@ -53,9 +89,4 @@ label {
 
 .input {
     width: 100%;
-}
-
-.register h1{
-    margin: 5rem auto 0;
-    text-align: center;
 }

@@ -1,14 +1,18 @@
 import { Formik, Form, Field } from 'formik';
-import { TextField, RadioGroup, Radio, Box, Button, FormControlLabel, FormGroup } from '@mui/material';
+import { TextField, Button, Paper } from '@mui/material';
 import MuiTextField from '@mui/material/TextField';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Dropzone from "react-dropzone";
+import Grow from '@mui/material/Grow';
+import { Link } from 'react-router-dom';
 import "./signup.css"
 import database from "../database";
+import { useState } from 'react';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Backdrop, CircularProgress } from "@mui/material";
 const root = "http://localhost:3000";
 
 function SignUp() {
-
+    const [showPassword, setShowPassword] = useState(false);
     const validate = (values) => {
         const errors = {};
         if (!values.name) {
@@ -26,29 +30,8 @@ function SignUp() {
         if (!values.password) {
             errors.password = 'Required';
         }
-        if (!values.age) {
-            errors.age = 'Required';
-        }
-        if (!values.gender) {
-            errors.gender = 'Required';
-        }
         if (!values.Mob) {
             errors.Mob = 'Required';
-        }
-        if (!values.address) {
-            errors.address = 'Required';
-        }
-        if (!values.state) {
-            errors.state = 'Required';
-        }
-        if (!values.pincode) {
-            errors.pincode = 'Required';
-        }
-        if (!values.DOB) {
-            errors.DOB = 'Required';
-        }
-        if (!values.picture) {
-            errors.picture = 'Required';
         }
         return errors;
     }
@@ -57,170 +40,121 @@ function SignUp() {
         username: "",
         email: "",
         password: "",
-        age: "",
-        gender: null,
         Mob: "",
-        address: "",
-        pincode: "",
-        state: "",
-        DOB: "",
-        picture: "",
     };
-    async function onSubmit(values, onSubmitProps) {
-        const formData = new FormData();
-        for (let value in values) {
-            formData.append(value, values[value]);
-        }
-        formData.append("picturePath", values.picture.name);
+    const [picture, setPic] = useState("");
+    const [isLoading, setLoading] = useState(false);
 
-        const savedUserResponse = await fetch(
-            "http://localhost:5000/auth/register",
-            {
+    const PostDetails = (pic) => {
+        setLoading(true);
+        if (pic.type === "image/jpeg" || pic.type === "image/png") {
+            const data = new FormData();
+            data.append("file", pic);
+            data.append("upload_preset", "HealthGen");
+            data.append("cloud_name", "dfj3rhjvl");
+            fetch("https://api.cloudinary.com/v1_1/dfj3rhjvl/image/upload", {
                 method: "POST",
-                body: formData,
+                body: data,
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setPic(data.url.toString());
+                    setLoading(false);
+                }).catch(error => {
+                    console.log(error);
+                    setLoading(false);
+                })
+        } else {
+            alert("Please select an image!!");
+            return;
+        }
+    }
+
+
+    function onSubmit(values, onSubmitProps) {
+        setLoading(true);
+        const data = {
+            name: values.name,
+            username: values.username,
+            email: values.email,
+            password: values.password,
+            Mob: values.Mob,
+            picturePath: picture
+        }
+        database.postData("http://localhost:5000/auth/register", data).then((data) => {
+            console.log(data);
+            if (data.user) {
+                localStorage.setItem("patient", JSON.stringify(data));
+                onSubmitProps.resetForm();
+                window.location.href = root + "/home";
+                setLoading(false);
             }
-        );
-        const savedUser = await savedUserResponse.json();
-        localStorage.setItem("patient", JSON.stringify(savedUser));
-        onSubmitProps.resetForm();
-        window.location.href = root;
+            else {
+                setLoading(false);
+                // onSubmitProps.resetForm();
+                alert(data.message);
+            }
+        })
     }
 
     return (
-        <div className="register">
-            <h1>Register on the portal to proceed.</h1>
-            <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit} >
-                {({ values, errors, touched, setFieldTouched, setFieldValue }) => (
-                    <Form className='signup-container'>
+        <>
+            <Backdrop
+                sx={{ color: "#fff", zIndex: 5 }}
+                open={isLoading}
+            >
+                <CircularProgress color="secondary" />
+            </Backdrop>
+            <div className="register">
+                <Grow in={{}} {...({ timeout: 250 })}>
+                    <Paper elevation={6} id='signup-paper'>
+                        <h2>Create your user account</h2>
+                        <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit} >
+                            {({ values, errors, touched, setFieldTouched, setFieldValue }) => (
+                                <Form className='signup-container' autoComplete='off'>
 
-                        <label>Name: </label>
-                        <div className='name-div'>
-                            <Field as={MuiTextField} className="input" label="Name" name="name" onBlur={() => setFieldTouched("name", true, true)} />
-                            {errors.name && touched.name ? <div className='error'>{errors.name}</div> : null}
-                        </div>
-                        <label>Aadhar No: </label>
-                        <div className='name-div'>
-                            <Field as={MuiTextField} className="input" label="Aadhar No" name="username" onBlur={() => setFieldTouched("username", true, true)} />
-                            {errors.username && touched.username ? <div className='error'>{errors.username}</div> : null}
-                        </div>
-                        <label>Email: </label>
-                        <div className='name-div'>
-                            <Field as={MuiTextField} className="input" label="Email" name="email" onBlur={() => setFieldTouched("email", true, true)} />
-                            {errors.email && touched.email ? <div className='error'>{errors.email}</div> : null}
-                        </div>
-                        <label>Password: </label>
-                        <div className='name-div'>
-                            <Field as={MuiTextField} className="input" label="Password" name="password" onBlur={() => setFieldTouched("password", true, true)} />
-                            {errors.password && touched.password ? <div className='error'>{errors.password}</div> : null}
-                        </div>
-                        <label>Age: </label>
-                        <div className='name-div'>
-                            <Field as={MuiTextField} className="input" label="Age" name="age" onBlur={() => setFieldTouched("age", true, true)} />
-                            {errors.age && touched.age ? <div className='error'>{errors.age}</div> : null}
-                        </div>
-
-                        <label>Gender: </label>
-                        <div className='signup-gender-div'>
-                            <Field name="gender">
-                                {({ field }) => (
-                                    <FormGroup className='input'>
-                                        <RadioGroup
-                                            {...field}
-                                            name="gender"
-                                            onBlur={() => setFieldTouched("gender", true, true)}
-                                        >
-                                            <div className='radio-btns'>
-                                                <FormControlLabel
-                                                    value="male"
-                                                    control=<Radio />
-                                                    label="Male"
-                                                    className='radio'
-                                                />
-                                                <FormControlLabel
-                                                    value="female"
-                                                    control=<Radio />
-                                                    label="Female"
-                                                    className='radio'
-                                                />
-                                                <FormControlLabel
-                                                    value="other"
-                                                    control=<Radio />
-                                                    label="Rather Not Say"
-                                                    className='radio'
-                                                />
-                                            </div>
-                                        </RadioGroup>
-                                    </FormGroup>
-                                )}
-                            </Field>
-                            {errors.gender && touched.gender ? <div className='error'>{errors.gender}</div> : null}
-                        </div>
-                        <label>Mobile No: </label>
-                        <div className='name-div'>
-                            <Field as={TextField} className="input" label="Mob" name="Mob" onBlur={() => setFieldTouched("Mob", true, true)} />
-                            {errors.Mob && touched.Mob ? <div className='error'>{errors.Mob}</div> : null}
-                        </div>
-                        <label>Address: </label>
-                        <div className='address-div'>
-                            <Field as={TextField} className="input" label="Address" name="address" multiline rows={2} onBlur={() => setFieldTouched("address", true, true)} />
-                            {errors.address && touched.address ? <div className='error'>{errors.address}</div> : null}
-                        </div>
-                        <label>State: </label>
-                        <div className='address-div'>
-                            <Field as={TextField} className="input" label="State" name="state" onBlur={() => setFieldTouched("state", true, true)} />
-                            {errors.state && touched.state ? <div className='error'>{errors.state}</div> : null}
-                        </div>
-                        <label>Pincode: </label>
-                        <div className='name-div'>
-                            <Field as={TextField} className="input" label="Pincode" name="pincode" onBlur={() => setFieldTouched("pincode", true, true)} />
-                            {errors.pincode && touched.pincode ? <div className='error'>{errors.pincode}</div> : null}
-                        </div>
-
-                        <label>DOB: </label>
-                        <div className='address-div'>
-                            <Field as={TextField} className="input" label="DD-MM-YYYY" name="DOB" onBlur={() => setFieldTouched("DOB", true, true)} />
-                            {errors.DOB && touched.DOB ? <div className='error'>{errors.DOB}</div> : null}
-                        </div>
-
-                        <Box className="dropzone">
-                            <Dropzone
-                                acceptedFiles=".jpg,.jpeg,.png"
-                                multiple={false}
-                                onDrop={(acceptedFiles) =>
-                                    setFieldValue("picture", acceptedFiles[0])
-                                }
-                            >
-                                {({ getRootProps, getInputProps }) => (
-                                    <Box
-                                        {...getRootProps()}
-                                        p="1rem"
-                                        sx={{ "&:hover": { cursor: "pointer" } }}
-                                    >
-                                        <input {...getInputProps()} />
-                                        {!values.picture ? (
-                                            <p>Add Picture Here</p>
-                                        ) : (
-                                            <p>{values.picture.name}</p>
-                                        )}
-                                    </Box>
-                                )}
-                            </Dropzone>
-                        </Box>
-                        <div className='signup-div'>
-                            <Button type="submit" id='submit-btn'>
-                                Register
-                            </Button>
-                        </div>
-
-                        <div className='goto-admin-register'>
-                            <Button href='/admin-signUp' type="submit" id='submit-btn'>
-                                Admin Register? <ArrowForwardIcon />
-                            </Button>
-                        </div>
-                    </Form>
-                )}
-            </Formik>
-        </div>
+                                    <div className='name-div'>
+                                        <Field as={MuiTextField} className="input" label="Name" name="name" onBlur={() => setFieldTouched("name", true, true)} />
+                                        {errors.name && touched.name ? <div className='error'>{errors.name}</div> : null}
+                                    </div>
+                                    <div className='name-div'>
+                                        <Field as={MuiTextField} className="input" label="Aadhar No" name="username" onBlur={() => setFieldTouched("username", true, true)} />
+                                        {errors.username && touched.username ? <div className='error'>{errors.username}</div> : null}
+                                    </div>
+                                    <div className='name-div'>
+                                        <Field as={MuiTextField} className="input" label="Email" name="email" onBlur={() => setFieldTouched("email", true, true)} />
+                                        {errors.email && touched.email ? <div className='error'>{errors.email}</div> : null}
+                                    </div>
+                                    <div className='name-div'>
+                                        <div className='password-div'>
+                                            <Field as={MuiTextField} type={showPassword ? "text" : "password"} className="input" label="Password" name="password" onBlur={() => setFieldTouched("password", true, true)} />
+                                            {showPassword && <VisibilityOffIcon onClick={() => setShowPassword(false)} />}
+                                            {!showPassword && <VisibilityIcon onClick={() => setShowPassword(true)} />}
+                                        </div>
+                                        {errors.password && touched.password ? <div className='error'>{errors.password}</div> : null}
+                                    </div>
+                                    <div className='name-div'>
+                                        <Field as={TextField} className="input" label="Mobile No" name="Mob" onBlur={() => setFieldTouched("Mob", true, true)} />
+                                        {errors.Mob && touched.Mob ? <div className='error'>{errors.Mob}</div> : null}
+                                    </div>
+                                    <div className='file-input-div'>
+                                        <input type="file" accept="image/*" onChange={(e) => PostDetails(e.target.files[0])} id="form-picture" />
+                                    </div>
+                                    <div className='signup-div'>
+                                        <Button type="submit" id='signup-btn'>
+                                            Register
+                                        </Button>
+                                    </div>
+                                    <div className='to-login-div'>
+                                        <p>Already have an account?&nbsp;&nbsp; <Link to="/login">Login here</Link></p>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>
+                    </Paper>
+                </Grow>
+            </div>
+        </>
     )
 }
 

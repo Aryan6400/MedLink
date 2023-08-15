@@ -1,12 +1,12 @@
 import "./profile.css"
-import EditProfile from "./BasicProfile";
+import ProfileInfo from "./ProfileInfo";
 import ProfilePicture from "./ProfilePicture";
 
 function UserProfile(){
     return(
         <div className='profile-container'>
             <ProfilePicture />
-            <EditProfile />
+            <ProfileInfo />
         </div>
     )
 }

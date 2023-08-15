@@ -1,43 +1,54 @@
 import { useState } from "react";
-import Zoom from '@mui/material/Zoom';
 import "./prescription.css"
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import CloseFullscreenIcon from '@mui/icons-material/CloseFullscreen';
+import Grow from '@mui/material/Grow';
+import PanToolAltOutlinedIcon from '@mui/icons-material/PanToolAltOutlined';
+import { TransitionGroup } from 'react-transition-group';
+import Fade from '@mui/material/Fade';
 
 
 function Prescription(props) {
-    const [state, setState] = useState(false);
-    function toggle() {
-        setState((prev) => {
+    const [imgstate, setImgState] = useState(false);
+    const [textstate, setTextState] = useState(false);
+    function imgToggle() {
+        setImgState((prev) => {
+            return !prev;
+        })
+    }
+    function textToggle() {
+        setTextState((prev) => {
             return !prev;
         })
     }
     return (
         <div className="prescription-card">
-            {/* <p>{props.name}</p>
-            <p>{props.age}</p>
-            <p>{props.gender}</p>
-            <p>{props.diagnosis}</p>
-            <p>{props.tests}</p>
-            <p>{props.aadhar}</p>
-            <p>{props.doctorId}</p>
-            <img src={props.picturePath} alt="Prescription" /> */}
             <div className="prescription-details">
-                {state && <CloseFullscreenIcon className="toggle-btn" onClick={toggle} />}
-                <p>props.name</p>
-                <p>props.age</p>
-                <p>props.gender</p>
-                <p>props.diagnosis</p>
-                <p>props.tests</p>
-                <p>props.aadhar</p>
-                <p>props.doctorId</p>
-                {!state && <MoreHorizIcon className="toggle-btn" onClick={toggle} />}
+                {!textstate && <Grow in={!textstate} {...(!textstate ? { timeout: 250 } : {})}>
+                    <div onClick={textToggle}>
+                        <p>Name: <strong>{props.name}</strong></p>
+                        <p>Aadhar Number: <strong>{props.aadhar}</strong></p>
+                    </div>
+                </Grow>}
+                {textstate && <Grow in={textstate} {...(textstate ? { timeout: 250 } : {})}>
+                    <div className="expanded-details" onClick={textToggle}>
+                        <p className="first-line"><strong>{props.name}</strong>, &nbsp;{props.age}, &nbsp;{props.gender}</p>
+                        <p>Aadhar Number: <strong>{props.aadhar}</strong></p>
+                        <p>Doctor Id: <strong>{props.doctorId}</strong></p>
+                        <p>Diagnosis: <strong>{props.diagnosis}</strong></p>
+                        <p>Tests: <strong>{props.tests}</strong></p>
+                    </div>
+                </Grow>}
+                <div>
+                    <p className="toggle-text" onClick={imgToggle} >prescription...</p>
+                    <PanToolAltOutlinedIcon className="toggle-text-finger"/>
+                </div>
             </div>
-            {state && <Zoom in={state}>
-            <div id="image">
-                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Prescription" />
-            </div>
-            </Zoom>}
+            <TransitionGroup>
+            {imgstate ? <Fade in={imgstate}>
+                <div id="image">
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Prescription" />
+                </div>
+            </Fade> : null}
+            </TransitionGroup>
         </div>
     )
 }

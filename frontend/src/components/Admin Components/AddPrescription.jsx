@@ -3,172 +3,197 @@ import { Formik, Form, Field } from 'formik';
 import { TextField, RadioGroup, Radio, Box, Button, FormControlLabel, FormGroup } from '@mui/material';
 import MuiTextField from '@mui/material/TextField';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Backdrop, CircularProgress } from "@mui/material";
 import Dropzone from "react-dropzone";
 import "./prescription.css"
-const root = "http://localhost:3000";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+const root = "https://mercor-medlink.netlify.app";
 
 
-function AddPrescription(){
-
-    const validate = (values) => {
-        const errors = {};
-        if (!values.name) {
-            errors.name = 'Required';
-        }
-        else if (!/^[A-Za-z ]+$/i.test(values.name)) {
-            errors.name = 'Invalid Name!';
-        }
-        if (!values.username) {
-            errors.username = 'Required';
-        }
-        if (!values.age) {
-            errors.age = 'Required';
-        }
-        if (!values.gender) {
-            errors.gender = 'Required';
-        }
-        if (!values.picturePath) {
-            errors.picturePath = 'Required';
-        }
-        if(!values.diagnosis){
-            errors.diagnosis = 'Required';
-        }
-        if(!values.tests){
-            errors.tests = 'Required';
-        }
-        return errors;
-    }
-    const initialValues = {
+function AddPrescription() {
+    const navigate = useNavigate();
+    const [data, setData] = useState({
         name: "",
         username: "",
         age: "",
         gender: "",
-        picturePath: "",
         diagnosis: "",
-        tests: ""
-    };
+        tests: "",
+        diabetes: "",
+    })
 
-    async function onSubmit(values, onSubmitProps) {
-        const formData = new FormData();
-        for (let value in values) {
-            formData.append(value, values[value]);
-        }
-        console.log(formData);
-        formData.append("picturePath", values.picture.name);
-        let auth = localStorage.getItem("admin");
-        auth = JSON.parse(auth);
-        const adminId = auth.username;
-        const savedUserResponse = await fetch(
-            `http://localhost:5000/admin-${adminId}/create`,
-            {
+    const [picture, setPic] = useState("");
+    const [isLoading, setLoading] = useState(false);
+
+    const PostDetails = (pic) => {
+        setLoading(true);
+        if (pic.type === "image/jpeg" || pic.type === "image/png") {
+            const data = new FormData();
+            data.append("file", pic);
+            data.append("upload_preset", "HealthGen");
+            data.append("cloud_name", "dfj3rhjvl");
+            fetch("https://api.cloudinary.com/v1_1/dfj3rhjvl/image/upload", {
                 method: "POST",
-                body: formData,
-            }
-        );
-        const savedUser = await savedUserResponse.json();
-        onSubmitProps.resetForm();
+                body: data,
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setPic(data.url.toString());
+                    setLoading(false);
+                }).catch(error => {
+                    console.log(error);
+                    setLoading(false);
+                })
+        } else {
+            alert("Please select an image!!");
+            return;
+        }
     }
 
-    return(
-        <div className="addPrescription">
-            <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit} >
-                {({ values, errors, touched, setFieldTouched, setFieldValue }) => (
-                    <Form className='add-prescription'>
+    function handleChange(event) {
+        const { name, value } = event.target;
+        setData(prev => {
+            return {
+                ...prev,
+                [name]: value
+            }
+        })
+    }
 
-                        <label>Patient name: </label>
-                        <div className='name-div'>
-                            <Field as={MuiTextField} className="input" label="Name" name="name" onBlur={() => setFieldTouched("name", true, true)} />
-                            {errors.name && touched.name ? <div className='error'>{errors.name}</div> : null}
-                        </div>
-                        <label>Patient's Aadhar No: </label>
-                        <div className='name-div'>
-                            <Field as={MuiTextField} className="input" label="Aadhar No" name="username" onBlur={() => setFieldTouched("username", true, true)} />
-                            {errors.username && touched.username ? <div className='error'>{errors.username}</div> : null}
-                        </div>
-                        <label>Patient's age: </label>
-                        <div className='name-div'>
-                            <Field as={MuiTextField} className="input" label="Age" name="age" onBlur={() => setFieldTouched("age", true, true)} />
-                            {errors.age && touched.age ? <div className='error'>{errors.age}</div> : null}
-                        </div>
-                        <label>Patient's gender: </label>
-                        <div className='signup-gender-div'>
-                            <Field name="gender">
-                                {({ field }) => (
-                                    <FormGroup className='input'>
-                                        <RadioGroup
-                                            {...field}
-                                            name="gender"
-                                            onBlur={() => setFieldTouched("gender", true, true)}
-                                        >
-                                            <div className='radio-btns'>
-                                                <FormControlLabel
-                                                    value="male"
-                                                    control=<Radio />
-                                                    label="Male"
-                                                    className='radio'
-                                                />
-                                                <FormControlLabel
-                                                    value="female"
-                                                    control=<Radio />
-                                                    label="Female"
-                                                    className='radio'
-                                                />
-                                                <FormControlLabel
-                                                    value="other"
-                                                    control=<Radio />
-                                                    label="Rather Not Say"
-                                                    className='radio'
-                                                />
-                                            </div>
-                                        </RadioGroup>
-                                    </FormGroup>
-                                )}
-                            </Field>
-                            {errors.gender && touched.gender ? <div className='error'>{errors.gender}</div> : null}
-                        </div>
-                        <label>Diagnosis: </label>
-                        <div className='name-div'>
-                            <Field as={MuiTextField} className="input" label="Diagnosis" name="diagnosis" onBlur={() => setFieldTouched("diagnosis", true, true)} />
-                            {errors.diagnosis && touched.diagnosis ? <div className='error'>{errors.diagnosis}</div> : null}
-                        </div>
-                        <label>Tests: </label>
-                        <div className='name-div'>
-                            <Field as={MuiTextField} className="input" label="Tests" name="tests" onBlur={() => setFieldTouched("tests", true, true)} />
-                            {errors.tests && touched.tests ? <div className='error'>{errors.tests}</div> : null}
-                        </div>
-                        <Box className="add-dropzone">
-                            <Dropzone
-                                acceptedFiles=".jpg,.jpeg,.png"
-                                multiple={false}
-                                onDrop={(acceptedFiles) =>
-                                    setFieldValue("picture", acceptedFiles[0])
-                                }
+    async function handleSubmit(event) {
+        if(data.name== "" || data.username== "" || data.age== "" || data.gender== "" || data.picturePath== "" || data.diagnosis== "" || data.tests== "" || data.diabetes== "" || picture == "") {
+            alert("Fill in all the details!");
+            return;
+        }
+        setLoading(true);
+        const adminInfo = JSON.parse(localStorage.getItem("admin"));
+        const presData = {
+            name: data.name,
+            username: data.username,
+            age: data.age,
+            gender: data.gender,
+            diagnosis: data.diagnosis,
+            tests: data.tests,
+            diabetes: data.diabetes,
+            picturePath: picture,
+        }
+        try {
+            const savedPrescriptionResponse = await fetch(
+                "http://localhost:5000/admin/create",
+                {
+                    method: "POST",
+                    cache: "no-cache",
+                    credentials: "same-origin",
+                    headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Admin ${adminInfo.token}`
+                    },
+                    redirect: "follow",
+                    referrerPolicy: "no-referrer",
+                    body: JSON.stringify(presData),
+                }
+            );
+            const savedPrescription = await savedPrescriptionResponse.json();
+            if(savedPrescription.status){
+                event.preventDefault();
+                setData({
+                    name: "",
+                    username: "",
+                    age: "",
+                    gender: "",
+                    diagnosis: "",
+                    tests: "",
+                    diabetes: "",
+                })
+                navigate("/admin");
+                setLoading(false);
+            }
+            else{
+                event.preventDefault();
+                setLoading(false);
+                alert(savedPrescription.message);
+            }
+        } catch (error) {
+            setLoading(false);
+            console.log(error);
+        }
+    }
+
+    return (
+        <>
+            <Backdrop
+                sx={{ color: "#fff", zIndex: 5 }}
+                open={isLoading}
+            >
+                <CircularProgress color="secondary" />
+            </Backdrop>
+            <div className="addPrescription">
+                <form className='add-prescription'>
+
+                    <label>Patient name: </label>
+                    <div className='name-div'>
+                        <MuiTextField className="add-prescription-input" label="Name" name="name" onChange={handleChange} value={data.name} />
+                    </div>
+                    <label>Patient's Aadhar No: </label>
+                    <div className='name-div'>
+                        <MuiTextField className="add-prescription-input" label="Aadhar No" name="username" onChange={handleChange} value={data.username} />
+                    </div>
+                    <label>Patient's age: </label>
+                    <div className='name-div'>
+                        <MuiTextField className="add-prescription-input" label="Age" name="age" onChange={handleChange} value={data.age} />
+                    </div>
+                    <label>Patient's gender: </label>
+                    <div className='signup-gender-div'>
+                        <FormGroup className='add-prescription-input'>
+                            <RadioGroup
+                                name="gender"
+                                onChange={handleChange}
                             >
-                                {({ getRootProps, getInputProps }) => (
-                                    <Box
-                                        {...getRootProps()}
-                                        p="1rem"
-                                        sx={{ "&:hover": { cursor: "pointer" } }}
-                                    >
-                                        <input {...getInputProps()} />
-                                        {!values.picture ? (
-                                            <p>Add Prescription Here</p>
-                                        ) : (
-                                            <p>{values.picture.name}</p>
-                                        )}
-                                    </Box>
-                                )}
-                            </Dropzone>
-                        </Box>
-                        <div className='add-div'>
-                            <Button type="submit" id='submit-btn'>
-                                Add
-                            </Button>
-                        </div>
-                    </Form>
-                )}
-            </Formik>
-        </div>
+                                <div className='radio-btns'>
+                                    <FormControlLabel
+                                        value="male"
+                                        control=<Radio />
+                                        label="Male"
+                                        className='radio'
+                                    />
+                                    <FormControlLabel
+                                        value="female"
+                                        control=<Radio />
+                                        label="Female"
+                                        className='radio'
+                                    />
+                                    <FormControlLabel
+                                        value="other"
+                                        control=<Radio />
+                                        label="Rather Not Say"
+                                        className='radio'
+                                    />
+                                </div>
+                            </RadioGroup>
+                        </FormGroup>
+                    </div>
+                    <label>Diagnosis: </label>
+                    <div className='name-div'>
+                        <MuiTextField className="add-prescription-input" label="Diagnosis" name="diagnosis" onChange={handleChange} value={data.diagnosis} />
+                    </div>
+                    <label>Tests: </label>
+                    <div className='name-div'>
+                        <MuiTextField className="add-prescription-input" label="Tests" name="tests" onChange={handleChange} value={data.tests} />
+                    </div>
+                    <label>Diabetes: </label>
+                    <div className='name-div'>
+                        <MuiTextField className="add-prescription-input" label="Diabetes" name="diabetes" onChange={handleChange} value={data.diabetes} />
+                    </div>
+                    <Box className="add-dropzone">
+                        <input type="file" accept="image/*" onChange={(e) => PostDetails(e.target.files[0])} id="prescription-picture-input" />
+                    </Box>
+                    <Button onClick={handleSubmit} id='add-prescription-btn'>
+                        Add
+                    </Button>
+                </form>
+            </div>
+        </>
     )
 }
 

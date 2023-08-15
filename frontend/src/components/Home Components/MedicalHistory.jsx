@@ -1,17 +1,47 @@
 import Prescription from "../Home Components/Prescription";
 import database from "../database";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 function MedicalHistory() {
     const [data, setData] = useState([]);
     useEffect(() => {
-        let auth = localStorage.getItem("patient");
-        auth = JSON.parse(auth);
-        const username = auth.username;
-        database.getData(`http://localhost:5000/user-${username}/history`).then(function (data) {
-            updateInformation(data);
-        })
+        const newData = [{
+            index: 1,
+            username: "singhAryan",
+            adminUsername: "Aryan6400",
+            age: 21,
+            gender: "Male",
+            name: "Aryan Singh",
+            // picturePath: "",
+            diagnosis: "fever",
+            tests: "urine, diabetes",
+            diabetes: "Normal"
+        }, {
+            index: 2,
+            username: "dumbUtpal",
+            adminUsername: "Aryan6400",
+            age: 19,
+            gender: "Male",
+            name: "Utpal Raj",
+            // picturePath: "",
+            diagnosis: "oral-fetish",
+            tests: "urine, blowjob",
+            diabetes: "Normal"
+        }, {
+            index: 3,
+            username: "loduRishi",
+            adminUsername: "Aryan7481",
+            age: 25,
+            gender: "Male",
+            name: "Rishikant Kashyap",
+            // picturePath: "",
+            diagnosis: "vaginal cancer",
+            tests: "urine, sex",
+            diabetes: "Normal"
+        }];
+        updateInformation(newData);
     }, []);
+
 
     function updateInformation(data) {
         setData(data);
@@ -32,6 +62,7 @@ function MedicalHistory() {
                         picturePath={item.picturePath}
                         diagnosis={item.diagnosis}
                         tests={item.tests}
+                        diabetes={item.diabetes}
                     />
                 );
             })}

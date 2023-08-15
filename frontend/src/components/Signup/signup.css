@@ -1,74 +1,82 @@
+.register h2,
+.admin-register h2 {
+    margin: 2rem auto 0;
+    text-align: center;
+}
+
+.register input, .admin-register input{
+    height: 20px;
+    padding: 15px 14px;
+}
+
 .error {
     color: red;
     font-size: 0.9rem;
 }
 
-.signup-container {
-    width: 42%;
-    margin: 50px auto;
-    display: grid;
-    gap: 10px;
-    grid-template-columns: 1fr 5fr;
-    grid-template-rows: repeat(12, 1fr);
+#signup-paper {
+    width: 60%;
+    margin: auto;
+    padding: 10px 30px;
+    box-shadow: 0px 3px 5px -1px #4A536B, 0px 6px 10px 0px #4A536B, 0px 1px 18px 0px #4A536B;
 }
 
+.signup-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 10px;
+    width: 80%;
+    margin: 30px auto;
+}
 .signup-div {
     margin-top: 5px;
-    grid-area: 13/2/14/3;
+    grid-area: 7/1/8/2;
 }
-
-.goto-admin-register{
-    grid-area: 14/2/15/3;
-}
-.dropzone{
-    border: 1px solid black;
-    border-radius: 3px;
-    padding: 2px;
-    grid-area: 12/2/13/3;
-}
-.adminform-container {
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 5fr;
-    gap: 10px;
-    width: 42%;
-    margin: 50px auto;
-    justify-content: center;
-    align-items: center;
-}
-.adminregister-div{
-    margin-top: 5px;
-    grid-area: 7/2/8/3;
-}
-
-.goto-user-register{
-    grid-area: 8/2/9/3;
-}
-
-#submit-btn {
+#signup-btn {
     color: white;
-    background-color: #5b1eb7;
-    box-shadow: 0 0 3px #542f8c;
+    background-color: #61C0BF;
+    box-shadow: 0 0 3px #61C0BF;
 }
-
-.radio-btns {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.radio {
-    margin: 0 5px;
-}
-
-label {
+.to-login-div {
+    margin-top: 5px;
+    grid-area: 8/1/9/2;
     font-size: 1.1rem;
 }
 
-.input {
-    width: 100%;
+.admin-signup-container {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 80%;
+    margin: 30px auto;
+}
+.adminregister-div {
+    margin-top: 5px;
+    grid-area: 7/1/8/2;
+}
+#admin-signup-btn {
+    color: white;
+    background-color: #61C0BF;
+    box-shadow: 0 0 3px #61C0BF;
+}
+.to-admin-login-div {
+    margin-top: 5px;
+    grid-area: 8/1/9/2;
+    font-size: 1.1rem;
 }
 
-.register h1{
-    margin: 5rem auto 0;
-    text-align: center;
+.to-login-div a, .to-admin-login-div a {
+    text-decoration: none;
+    color: #61C0BF;
+}
+
+.to-login-div a:hover, .to-admin-login-div a:hover {
+    border-bottom: 2px solid #61C0BF;
+}
+
+.password-div {
+    display: flex;
+    align-items: center;
 }

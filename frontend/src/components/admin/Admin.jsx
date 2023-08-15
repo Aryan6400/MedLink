@@ -6,15 +6,17 @@ import AdminPanel from "../Admin Components/AdminPanel";
 import AdminHistory from "../Admin Components/AdminHistory";
 
 function Admin() {
-    const navigate = useNavigate();
-    useEffect(() => {
-        let auth = localStorage.getItem("admin");
-        if (!auth) navigate('/admin-signUp')
-    }, []);
+    // const navigate = useNavigate();
+    // useEffect(() => {
+    //     let auth = localStorage.getItem("admin");
+    //     if (!auth) navigate('https://mercor-medlink.netlify.app/admin-signUp')
+    // }, []);
     return (
         <div className="home-container">
             <div className="admin-left">
-                <AdminPanel />
+                <div className="admin-left-innerdiv">
+                    <AdminPanel />
+                </div>
             </div>
             <div className="center">
                 <div className="middle-top">
