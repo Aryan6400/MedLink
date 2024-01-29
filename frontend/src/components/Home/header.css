@@ -45,4 +45,5 @@ header h1 {
 .nav-links{
     text-decoration: none;
     color: #61C0BF;
+    cursor: pointer;
 }

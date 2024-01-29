@@ -1,0 +1,60 @@
+.about-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 4rem;
+}
+
+.about-cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    width: 85%;
+}
+
+.about-card{
+    height: fit-content;
+    min-width: 280px;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.about-img{
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+.about-img img{
+    width: 100%;
+    height: 100%;
+}
+
+.about-name, .about-position, .about-institute{
+    padding-left: 15px;
+}
+
+.about-name{
+    font-weight: 700;
+    font-size: 1.35rem;
+}
+
+.about-position, .about-institute{
+    font-weight: 500;
+}
+
+.about-links{
+    background-color: black;
+    text-align: center;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.about-links a{
+    text-decoration: none;
+    color: white;
+}

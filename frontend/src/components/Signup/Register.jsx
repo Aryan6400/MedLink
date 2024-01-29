@@ -2,17 +2,23 @@ import { Formik, Form, Field } from 'formik';
 import { TextField, Button, Paper } from '@mui/material';
 import MuiTextField from '@mui/material/TextField';
 import Grow from '@mui/material/Grow';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./signup.css"
 import database from "../database";
 import { useState } from 'react';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Backdrop, CircularProgress } from "@mui/material";
+import { useAuth } from '../../context/AuthContext';
 const root = "http://localhost:3000";
 
 function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
+    const [picture, setPic] = useState("");
+    const [isLoading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const {setPatient} = useAuth();
+
     const validate = (values) => {
         const errors = {};
         if (!values.name) {
@@ -42,36 +48,36 @@ function SignUp() {
         password: "",
         Mob: "",
     };
-    const [picture, setPic] = useState("");
-    const [isLoading, setLoading] = useState(false);
 
-    const PostDetails = (pic) => {
+    const PostDetails = async (pic) => {
         setLoading(true);
-        if (pic.type === "image/jpeg" || pic.type === "image/png") {
-            const data = new FormData();
-            data.append("file", pic);
-            data.append("upload_preset", "HealthGen");
-            data.append("cloud_name", "dfj3rhjvl");
-            fetch("https://api.cloudinary.com/v1_1/dfj3rhjvl/image/upload", {
-                method: "POST",
-                body: data,
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    setPic(data.url.toString());
-                    setLoading(false);
-                }).catch(error => {
-                    console.log(error);
-                    setLoading(false);
-                })
-        } else {
-            alert("Please select an image!!");
-            return;
+        try {
+            if (pic.type === "image/jpeg" || pic.type === "image/png") {
+                const data = new FormData();
+                data.append("file", pic);
+                data.append("upload_preset", "HealthGen");
+                data.append("cloud_name", "dfj3rhjvl");
+                const response = await fetch("https://api.cloudinary.com/v1_1/dfj3rhjvl/image/upload", {
+                    method: "POST",
+                    body: data,
+                });
+                const result = await response.json();
+                console.log(result.url.toString());
+                setPic(result.url.toString());
+                setLoading(false);
+            } else {
+                alert("Please select an image!!");
+                setLoading(false);
+                return;
+            }
+        } catch (error) {
+            console.error(error);
+            setLoading(false);
         }
     }
 
 
-    function onSubmit(values, onSubmitProps) {
+    const onSubmit = async(values, onSubmitProps) => {
         setLoading(true);
         const data = {
             name: values.name,
@@ -81,20 +87,34 @@ function SignUp() {
             Mob: values.Mob,
             picturePath: picture
         }
-        database.postData("http://localhost:5000/auth/register", data).then((data) => {
-            console.log(data);
-            if (data.user) {
-                localStorage.setItem("patient", JSON.stringify(data));
-                onSubmitProps.resetForm();
-                window.location.href = root + "/home";
+        try {
+            const res = await fetch("http://localhost:5000/auth/register", {
+                method: "POST",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                redirect: "follow",
+                referrerPolicy: "no-referrer",
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            onSubmitProps.resetForm();
+            if(result.user){
+                localStorage.setItem("patient", JSON.stringify(result));
+                setPatient(true);
                 setLoading(false);
+                navigate("/home");
             }
-            else {
+            else{
                 setLoading(false);
-                // onSubmitProps.resetForm();
-                alert(data.message);
+                alert(result.message);
             }
-        })
+        } catch (error) {
+            setLoading(false);
+            console.error(error);
+        }
     }
 
     return (
@@ -110,7 +130,7 @@ function SignUp() {
                     <Paper elevation={6} id='signup-paper'>
                         <h2>Create your user account</h2>
                         <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit} >
-                            {({ values, errors, touched, setFieldTouched, setFieldValue }) => (
+                            {({ errors, touched, setFieldTouched }) => (
                                 <Form className='signup-container' autoComplete='off'>
 
                                     <div className='name-div'>

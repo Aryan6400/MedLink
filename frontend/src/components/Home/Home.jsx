@@ -5,11 +5,11 @@ import "./home.css"
 import { useEffect } from "react";
 
 function Home() {
-    // const navigate = useNavigate();
-    // useEffect(() => {
-    //     let auth = localStorage.getItem("patient");
-    //     if (!auth) navigate('/SignUp')
-    // }, []);
+    const navigate = useNavigate();
+    useEffect(() => {
+        let auth = localStorage.getItem("patient");
+        if (!auth) navigate('/login')
+    }, []);
     return (
         <div className="home-container">
             <div className="left">

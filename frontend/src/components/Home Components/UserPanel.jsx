@@ -5,28 +5,37 @@ import "./panel.css";
 
 
 function UserPanel() {
-    const [imgUrl, setImgUrl] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
     const [user, setUser] = useState({});
-    useEffect(() => {
-        const auth = {
-            index: 1,
-            username: "singhAryan",
-            DOB: "28-12-2002",
-            name: "Aryan Singh",
-            picturePath: "",
-            Mob: "7033099577",
-            email: "aryan@gmail.com",
+    const [isLoading, setLoading] = useState(false);
+
+    const fetchUserDetails = async() => {
+        setLoading(true);
+        const userInfo = JSON.parse(localStorage.getItem("patient"));
+        try {
+            const response = await fetch("http://localhost:5000/user", {
+                method:"GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "authorization": `Patient ${userInfo.token}`
+                },
+            })
+            const result = await response.json();
+            setUser(result);
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.error(error);
         }
-        setUser(auth);
-        const picturePath = auth.picturePath;
-        if (picturePath) setImgUrl(picturePath);
+    }
+    useEffect(() => {
+        fetchUserDetails();
     }, []);
 
     return (
         <Grow in={{}} {...({ timeout: 250 })}>
             <div className='user-panel'>
                 <div className="panel-picture">
-                    <img id="user-profile" src={imgUrl} alt="Profile Picture" />
+                    <img id="user-profile" src={user.picturePath} alt="Profile Picture" />
                 </div>
                 <div className="user-panel-details">
                     <p><strong>{user.name}</strong></p>
