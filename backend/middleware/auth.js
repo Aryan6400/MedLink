@@ -7,11 +7,11 @@ async function auth(req, res, next){
         let decodedData;
         if(token && designation=="Admin") {
             decodedData = jwt.verify(token, process.env.ADMIN_SECRET);
-            req.adminId = decodedData?.username;
+            req.adminId = decodedData?.id;
         }
         else if(token && designation=="Patient") {
             decodedData = jwt.verify(token, process.env.USER_SECRET);
-            req.userId = decodedData?.username;
+            req.userId = decodedData?.id;
         }
 
         next();
