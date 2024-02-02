@@ -1,11 +1,14 @@
 import mongoose from "mongoose";
 
 const prescriptionSchema = new mongoose.Schema({
-  username: String,
-  adminUsername: String,
-  age: Number,
-  gender: String,
-  name: String,
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  adminId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Admin"
+  },
   picturePath : {
     type: String,
     default: ""
@@ -13,6 +16,8 @@ const prescriptionSchema = new mongoose.Schema({
   diagnosis: String,
   tests: String,
   diabetes: String,
+  height: String,
+  weight: String,
 }, {timestamps:true}
 )
 

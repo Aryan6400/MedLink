@@ -1,7 +1,6 @@
-import { Admin } from "../../models/doctor.js";
+import Admin from "../../models/doctor.js";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
-const dirname = "C:/Users/Lenovo/Desktop/Mercor/server";
 
 async function adminRegister(req, res) {
     const {
@@ -26,7 +25,7 @@ async function adminRegister(req, res) {
             picturePath,
         })
         const savedAdmin = await newAdmin.save();
-        const token = jwt.sign({id: savedAdmin._id}, process.env.ADMIN_SECRET, {expiresIn:"12hr"});
+        const token = jwt.sign({id: savedAdmin._id}, process.env.ADMIN_SECRET, {expiresIn:"24hr"});
         res.status(201).json({token: token, admin: savedAdmin});
     } catch (err) {
         res.status(500).json({message: err.message});

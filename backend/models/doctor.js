@@ -12,9 +12,11 @@ const adminSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    gender: String,
+    age: Number,
 }, {timestamps:true})
 
 
 const Admin = mongoose.model("Admin", adminSchema);
 
-export { Admin };
+export default Admin;

@@ -10,8 +10,10 @@ import { getPrescription, createPrescription, getAdminPrescription } from "./Con
 import User from "./models/patient.js";
 import auth from "./middleware/auth.js";
 import Prescription from "./models/prescription.js";
-import { Admin } from "./models/doctor.js";
+import Admin from "./models/doctor.js";
 import { getUser, updatePic, updateUser } from "./Controllers/user/user.js";
+import { getAdmin, updateAdmin, updateAdminPic } from "./Controllers/doctor/doctor.js";
+import { addSymptoms, searchSymptoms } from "./Controllers/symptom/symptom.js";
 
 dotenv.config();
 const app = express();
@@ -71,9 +73,16 @@ app.get("/user", auth, getUser);
 app.patch("/update-user", auth, updateUser);
 app.patch("/update-user-picture", auth, updatePic);
 
-app.get("/user-:userId/history", auth, getPrescription);
+app.get("/admin", auth, getAdmin);
+app.patch("/update-admin-picture", auth, updateAdminPic);
+app.patch("/update-admin", auth, updateAdmin);
+
+app.get("/user/history", auth, getPrescription);
 app.get("/admin/history", auth, getAdminPrescription);
 app.post("/admin/create", auth, createPrescription);
+
+app.get("/search-symptoms", searchSymptoms);
+app.post("/symptoms", addSymptoms);
 
 
 app.post("/auth/register", register);
