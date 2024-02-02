@@ -3,14 +3,12 @@ import { TextField, Button, Paper } from '@mui/material';
 import MuiTextField from '@mui/material/TextField';
 import Grow from '@mui/material/Grow';
 import { Link, useNavigate } from 'react-router-dom';
-import "./signup.css"
-import database from "../database";
+import "./signup.css";
 import { useState } from 'react';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useAuth } from '../../context/AuthContext';
-const root = "http://localhost:3000";
 
 function SignUp() {
     const [showPassword, setShowPassword] = useState(false);

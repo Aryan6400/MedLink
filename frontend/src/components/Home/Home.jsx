@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import UserPanel from "../Home Components/UserPanel";
-import MedicalHistory from "../Home Components/MedicalHistory";
+import UserPanel from "../HomeComponents/UserPanel";
+import MedicalHistory from "../HomeComponents/MedicalHistory";
 import "./home.css"
 import { useEffect } from "react";
 
 function Home() {
     const navigate = useNavigate();
     useEffect(() => {
-        let auth = localStorage.getItem("patient");
-        if (!auth) navigate('/login')
+        const patient = localStorage.getItem("patient");
+        if (!patient) navigate('/login')
     }, []);
     return (
         <div className="home-container">

@@ -1,11 +1,7 @@
 header {
-    background-color: white;
-    /* box-shadow: 0 1px 0 #f8f1f1; */
+    background-color: #b7eae1;
     margin: auto;
-    padding: 20px 32px;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+    padding: 20px 93px;
 }
 
 .header-bar{
@@ -22,7 +18,7 @@ header h1 {
 
 .head-link {
     text-decoration: none;
-    color: #4A536B;
+    color: #000000;
 }
 
 .navbar{
@@ -44,6 +40,10 @@ header h1 {
 
 .nav-links{
     text-decoration: none;
-    color: #61C0BF;
+    color: #000000;
     cursor: pointer;
+}
+
+.nav-links:hover {
+    text-decoration: underline;
 }

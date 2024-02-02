@@ -1,0 +1,132 @@
+.AI-page{   
+    position: relative;
+}
+
+.start-page-content{
+    margin: auto;
+    padding-left: 93px;
+    padding-right: 93px;
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 330px;
+}
+
+.start-page-img{
+    background-image: url("../../../../public/images/StartPage.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.start-page-content h1{
+    font-size: 3rem;
+    margin-bottom: 5rem;
+    color: white;
+    z-index: 5;
+}
+
+.start-page-content button{
+    padding: 15px 40px;
+    background-color: #1EE7B6;
+    border-radius: 47px;
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 600;
+}
+
+.start-page-content button:hover{
+    background-color: #1EE7B6;
+    text-decoration: underline;
+}
+
+
+.first-page{
+    position: relative;
+}
+
+.first-page-dummy{
+    padding-top: 90px;
+    padding-bottom: 90px;
+}
+
+.first-page-content{
+    margin: auto;
+    max-width: 22rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 45px;
+    padding: 60px 75px;
+    background-color: #D9D9D9;
+}
+
+.first-page-content h1{
+    margin: 0;
+}
+
+.first-page-inputs{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-inputs{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-inputs label{
+    text-align: left;
+}
+
+.form-inputs input{
+    border: none;
+    height: 25px;
+}
+
+.form-inputs textarea{
+    border: none;
+    resize: none;
+}
+
+.first-page-ctas{
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.second-page-dummy{
+    padding-top: 80px;
+    padding-bottom: 85px;
+}
+
+.third-page-dummy{
+    padding-top: 100px;
+    padding-bottom: 90px;
+}
+
+.verdict-page-dummy{
+    padding-top: 130px;
+    padding-bottom: 192px;
+}
+
+.verdict-card-box{
+    height: 124.8px;
+}
+
+.verdict-card{
+    width: calc(100% - 60px);
+    border: 1px solid black;
+    color: #eaeaea;
+    background-color: #00B1B9;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font-weight: 600;
+    font-size: 18px;
+}

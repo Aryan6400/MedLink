@@ -2,6 +2,25 @@ html{
     background-image: url("https://www.transparenttextures.com/patterns/ag-square.png");
 }
 
+
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #8e8e8e;
+    border-radius: 20px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #fff;
+    border-radius: 20px;
+  }
+
+.body{
+    max-width: 1350px;
+    margin: auto;
+}
+
 .login-page {
     display: grid;
     grid-template-columns: 1fr 10px 1fr;

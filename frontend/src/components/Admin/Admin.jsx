@@ -2,15 +2,15 @@ import { useNavigate } from "react-router-dom";
 import { Button } from '@mui/material';
 import "./admin.css"
 import { useEffect, useState } from "react";
-import AdminPanel from "../Admin Components/AdminPanel";
-import AdminHistory from "../Admin Components/AdminHistory";
+import AdminPanel from "../AdminComponents/AdminPanel";
+import AdminHistory from "../AdminComponents/AdminHistory";
 
 function Admin() {
-    // const navigate = useNavigate();
-    // useEffect(() => {
-    //     let auth = localStorage.getItem("admin");
-    //     if (!auth) navigate('https://mercor-medlink.netlify.app/admin-signUp')
-    // }, []);
+    const navigate = useNavigate();
+    useEffect(() => {
+        const admin = localStorage.getItem("admin");
+        if (!admin) navigate('/login');
+    }, []);
     return (
         <div className="home-container">
             <div className="admin-left">

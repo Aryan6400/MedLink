@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
-import database from "../database";
 import "./header.css"
-import PersonIcon from '@mui/icons-material/Person';
 import { useAuth } from "../../context/AuthContext";
+import { usePage } from "../../context/FormPageContext";
 
 function Header() {
   const {patient, setPatient, admin, setAdmin} = useAuth();
+  const {setPage} = usePage();
   const navigate = useNavigate();
 
   function logout() {
@@ -21,7 +19,7 @@ function Header() {
   return (
     <header>
       <div className="header-bar">
-        <h1 className="head"><Link className="head-link">MedLink</Link></h1>
+        <h1 className="head"><Link to="/" className="head-link">MedLink</Link></h1>
         <div className="navbar">
           <ul className="navbar-list">
           <li className="nav-items">
@@ -29,6 +27,9 @@ function Header() {
             </li>
             <li className="nav-items">
               <Link className="nav-links" to="/about">About</Link>
+            </li>
+            <li className="nav-items">
+              <Link className="nav-links" onClick={()=>{setPage(0); navigate("/ai-assist")}}>AI Assist</Link>
             </li>
             {patient && <li className="nav-items">
               <Link className="nav-links" to="/user-profile">Profile</Link>

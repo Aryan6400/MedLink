@@ -1,0 +1,65 @@
+.landing-page-container {
+    position: relative;
+}
+
+.landing-page-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 50px;
+    padding-bottom: 235px;
+}
+
+.landing-page-img{
+    background-image: url("../../../public/images/Landing.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+}
+
+.landing-page-content h1 {
+    font-style: italic;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 59px;
+    z-index: 5;
+}
+
+.landing-page-content p {
+    font-style: italic;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.5;
+    margin: 0;
+    z-index: 5;
+}
+
+.landing-page-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    gap: 50px;
+}
+
+.landing-page-ctas button{
+    border-radius: 34px;
+    background-color: #b7eae1;
+    padding: 15px 30px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.landing-page-ctas button a{
+    text-decoration: none;
+    color: #1976d2;
+}
+
+.landing-page-ctas button:hover{
+    background-color: #b7eae1;
+    text-decoration: underline;
+}

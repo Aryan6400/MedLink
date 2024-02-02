@@ -2,18 +2,19 @@ import { Formik, Form, Field } from 'formik';
 import { Button, Box, Paper, TextField } from '@mui/material';
 import MuiTextField from '@mui/material/TextField';
 import Grow from '@mui/material/Grow';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./signup.css"
 import { useState } from 'react';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Backdrop, CircularProgress } from "@mui/material";
-import database from "../database";
-const root = "http://localhost:3000";
+import { useAuth } from '../../context/AuthContext';
 
 function AdminRegister() {
     const [showPassword, setShowPassword] = useState(false);
+    const {setAdmin} = useAuth();
+    const navigate = useNavigate();
     const validate = (values) => {
         const errors = {};
         if (!values.name) {
@@ -70,7 +71,7 @@ function AdminRegister() {
         }
     }
 
-    function onSubmit(values, onSubmitProps) {
+    const onSubmit = async(values, onSubmitProps) => {
         setLoading(true);
         const data = {
             name: values.name,
@@ -80,17 +81,34 @@ function AdminRegister() {
             Mob: values.Mob,
             picturePath: picture
         }
-        database.postData("http://localhost:5000/admin/register", data).then((data) => {
-            console.log(data);
-            if(data.admin){
-                localStorage.setItem("admin", JSON.stringify(data));
-                onSubmitProps.resetForm();
-                window.location.href = root + "/admin";
+        try {
+            const res = await fetch("http://localhost:5000/admin/register", {
+                method: "POST",
+                cache: "no-cache",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                redirect: "follow",
+                referrerPolicy: "no-referrer",
+                body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            onSubmitProps.resetForm();
+            if(result.admin){
+                localStorage.setItem("admin", JSON.stringify(result));
+                setAdmin(true);
+                setLoading(false);
+                navigate("/admin");
             }
-            else {
-                alert(data.message);
+            else{
+                setLoading(false);
+                alert(result.message);
             }
-        })
+        } catch (error) {
+            setLoading(false);
+            console.error(error);
+        }
     }
 
     return (
