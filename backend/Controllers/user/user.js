@@ -19,6 +19,7 @@ const updateUser = async(req,res) => {
         address,
         pincode,
         DOB,
+        blood
     } = req.body;
     const data = {
         name,
@@ -31,6 +32,7 @@ const updateUser = async(req,res) => {
         address,
         pincode,
         DOB,
+        blood
     };
     try {
         const newUser = await User.findByIdAndUpdate(req.userId, data, {new:true});

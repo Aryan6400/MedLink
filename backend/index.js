@@ -13,7 +13,7 @@ import Prescription from "./models/prescription.js";
 import Admin from "./models/doctor.js";
 import { getUser, updatePic, updateUser } from "./Controllers/user/user.js";
 import { getAdmin, updateAdmin, updateAdminPic } from "./Controllers/doctor/doctor.js";
-import { addSymptoms, searchSymptoms } from "./Controllers/symptom/symptom.js";
+import { addSymptoms, predict, searchSymptoms } from "./Controllers/symptom/symptom.js";
 
 dotenv.config();
 const app = express();
@@ -22,7 +22,6 @@ app.use(express.static('public'));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-
 
 mongoose.connect('mongodb+srv://SinghAryan:Aryan6400@cluster0.ilp3vu7.mongodb.net/MedicalDB', { useNewUrlParser: true })
   .then(() => {
@@ -69,6 +68,7 @@ app.patch("/user-:username", auth, (req, res) => {
   });
 })
 
+
 app.get("/user", auth, getUser);
 app.patch("/update-user", auth, updateUser);
 app.patch("/update-user-picture", auth, updatePic);
@@ -83,6 +83,7 @@ app.post("/admin/create", auth, createPrescription);
 
 app.get("/search-symptoms", searchSymptoms);
 app.post("/symptoms", addSymptoms);
+app.post("/predict", predict);
 
 
 app.post("/auth/register", register);

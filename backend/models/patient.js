@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   age: Number,
   gender: String,
+  blood: String,
   Mob: String,
   picturePath : {
     type: String,
