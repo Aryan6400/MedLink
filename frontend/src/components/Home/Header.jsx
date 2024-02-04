@@ -29,7 +29,7 @@ function Header() {
               <Link className="nav-links" to="/about">About</Link>
             </li>
             <li className="nav-items">
-              <Link className="nav-links" onClick={()=>{setPage(0); navigate("/ai-assist")}}>AI Assist</Link>
+              <span className="nav-links" onClick={()=>{setPage(0); navigate("/ai-assist")}}>AI Assist</span>
             </li>
             {patient && <li className="nav-items">
               <Link className="nav-links" to="/user-profile">Profile</Link>

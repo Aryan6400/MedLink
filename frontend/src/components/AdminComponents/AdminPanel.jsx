@@ -8,12 +8,12 @@ function AdminPanel() {
     const [doctor, setDoctor] = useState({});
     const [isLoading, setLoading] = useState(false);
 
-    const fetchAdminDetails = async() => {
+    const fetchAdminDetails = async () => {
         setLoading(true);
         const adminInfo = JSON.parse(localStorage.getItem("admin"));
         try {
             const response = await fetch("http://localhost:5000/admin", {
-                method:"GET",
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "authorization": `Admin ${adminInfo.token}`
@@ -39,11 +39,16 @@ function AdminPanel() {
                     <img id="admin-profile" src={doctor.picturePath} alt="Profile Picture" />
                 </div>
                 <div className="admin-panel-details">
-                    <p><strong>{doctor.name}</strong></p>
-                    <p>Id: <strong>{doctor.username}</strong></p>
-                    <p>Degree: <strong>{doctor.degree}</strong></p>
-                    <p>Specialization: <strong>{doctor.specialization}</strong></p>
-                    <p>Hospital Id: <strong>{doctor.hospitalId}</strong></p>
+                    <p>Name: <strong>{doctor.name}</strong></p>
+                    <p>Medical UID: <strong> {doctor.username}</strong></p>
+                    <p>Degree: <strong>{doctor.degree ? doctor.degree : "Not available"}</strong></p>
+                    <p>Specialization: <strong>{doctor.specialization ? doctor.specialization : "Not available"}</strong></p>
+                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap:"wrap" }}>
+                        <p>Hospital Id: <strong>{doctor.hospitalId}</strong></p>
+                        <p>Mob: <strong>{doctor.Mob}</strong></p>
+                    </div>
+                </div>
+                <div style={{ textAlign: "center", marginBottom: "10px" }}>
                     <Button id="panel-logout-btn">
                         Logout
                     </Button>

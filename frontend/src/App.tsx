@@ -23,19 +23,12 @@ function App() {
   const { admin } = useAuth();
   return (
     <BrowserRouter>
-      {/* <Header /> */}
       {admin ? <AdminHeader /> : <Header />}
       
-      {/* <div className="body"> */}
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/ai-assist" element={<AIAssist />} />
-
-
-          <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/user-profile" element={<UserProfile />} />
-
           <Route path="/login" element={
             <div className="login-page">
               <Login />
@@ -43,7 +36,6 @@ function App() {
               <AdminLogin />
             </div>
           } />
-
           <Route path="/signup" element={
             <div className="signup-page">
               <SignUp />
@@ -51,25 +43,16 @@ function App() {
               <AdminRegister />
             </div>
           } />
-
-          {/* <Route element={<PrivateComponent />}>
-            <Route path="/" element={<Home />} />
+          <Route element={<PrivateComponent />}>
+            <Route path="/home" element={<Home />} />
             <Route path="/user-profile" element={<UserProfile />} />
-          </Route> */}
-
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin-profile" element={<AdminProfile />} />
-          <Route path="/admin/add" element={<AddPrescription />} />
-          {/* <Route element={<AdminPrivateComponent />}>
+          </Route>
+          <Route element={<AdminPrivateComponent />}>
             <Route path="/admin" element={<Admin />} />
+            <Route path="/admin-profile" element={<AdminProfile />} />
             <Route path="/admin/add" element={ <AddPrescription /> } />
-          </Route> */}
+          </Route>
         </Routes>
-      {/* </div> */}
-
-
-      <Footer />
-
     </BrowserRouter>
   );
 }

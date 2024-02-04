@@ -117,7 +117,7 @@
 }
 
 .verdict-card-box{
-    height: 124.8px;
+    min-height: 124.8px;
 }
 
 .verdict-card{

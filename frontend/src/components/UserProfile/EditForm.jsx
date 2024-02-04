@@ -6,7 +6,7 @@ import { useUserInfo } from "../../context/UserInfoContext";
 
 function EditForm(props) {
     const [isLoading, setLoading] = useState(false);
-    const {patientInfo, setPatientInfo} = useUserInfo();
+    const {setPatientInfo} = useUserInfo();
     const [user, setUser] = useState({
         name: props.user.name ? props.user.name : "",
         email: props.user.email ? props.user.email : "",
@@ -16,6 +16,7 @@ function EditForm(props) {
         address: props.user.address ? props.user.address : "",
         pincode: props.user.pincode ? props.user.pincode : "",
         DOB: props.user.DOB ? props.user.DOB : "",
+        blood: props.user.blood ? props.user.blood : ""
     })
 
     function handleChange(event) {
@@ -61,24 +62,20 @@ function EditForm(props) {
     return (
         <div>
             <form className="edit-form">
-
                 <div className='name-div'>
                     <MuiTextField className="edit-profile-input" onChange={handleChange} label="Name" name="name" value={user.name} />
                 </div>
-
                 <div className='name-div'>
                     <MuiTextField className="edit-profile-input" onChange={handleChange} label="Email" name="email" value={user.email} />
                 </div>
-
                 <div className='name-div'>
                     <MuiTextField className="edit-profile-input" onChange={handleChange} label="Mobile No" name="Mob" value={user.Mob} />
                 </div>
-
                 <FormGroup className='gender-div'>
                     <label>Gender: </label>
                     <RadioGroup
                         name="gender"
-                        
+                    
                     >
                         <div className='radio-btns'>
                             <FormControlLabel
@@ -102,20 +99,18 @@ function EditForm(props) {
                         </div>
                     </RadioGroup>
                 </FormGroup>
-
                 <div className='name-div'>
                     <MuiTextField className="edit-profile-input" onChange={handleChange} label="Age" name="age" value={user.age} />
                 </div>
-
+                <div className='name-div'>
+                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Blood Group" name="blood" value={user.blood} />
+                </div>
                 <div className='address-div'>
                     <MuiTextField className="edit-profile-input" onChange={handleChange} multiline rows={2} label="Address" name="address" value={user.address} />
                 </div>
-
-
                 <div className='name-div'>
                     <MuiTextField className="edit-profile-input" onChange={handleChange} label="Pincode" name="pincode" value={user.pincode} />
                 </div>
-
                 <div className='name-div'>
                     <MuiTextField className="edit-profile-input" onChange={handleChange} label="DOB(dd-mm-yyyy)" name="DOB" value={user.DOB} />
                 </div>

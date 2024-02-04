@@ -38,6 +38,8 @@ function ProfileInfo({user}) {
                     <p className="detail">{user.gender}</p>
                     <p>Age: </p>
                     <p className="detail">{user.age}</p>
+                    <p>Blood Group: </p>
+                    <p className="detail">{user.blood}</p>
                     <p>Address: </p>
                     <p className="detail">{user.address}</p>
                     <p>Pincode: </p>

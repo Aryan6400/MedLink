@@ -13,12 +13,12 @@ function Admin() {
     }, []);
     return (
         <div className="home-container">
-            <div className="admin-left">
+            <div className="admin-left" style={{height:"88.73vh"}}>
                 <div className="admin-left-innerdiv">
                     <AdminPanel />
                 </div>
             </div>
-            <div className="center">
+            <div className="center" style={{height: "88.73vh", overflowY: "auto"}}>
                 <div className="middle-top">
                     <div className="add-prescription-btn">
                         <Button href="/admin/add">Add new prescription.</Button>

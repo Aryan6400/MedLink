@@ -31,7 +31,7 @@ function Second() {
                     <h2>Do you assosiate yourself with these?</h2>
                     <div className="first-page-inputs">
                         <div className="form-inputs">
-                            <label>Region</label>
+                            <label>City</label>
                             <input type="text" name="region" value={aiData.region} onChange={(e)=>handleChange(e)} />
                         </div>
                         <div className="form-inputs">

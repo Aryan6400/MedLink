@@ -12,12 +12,12 @@ function Home() {
     }, []);
     return (
         <div className="home-container">
-            <div className="left">
+            <div className="left" style={{height:"88.73vh"}}>
                 <div className="left-innerdiv">
                     <UserPanel />
                 </div>
             </div>
-            <div className="center">
+            <div className="center" style={{height: "88.73vh", overflowY: "auto"}}>
                 <div className="middle">
                     <MedicalHistory />
                 </div>

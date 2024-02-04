@@ -40,11 +40,11 @@ function First() {
                             <input type="text" name="gender" value={aiData.gender} onChange={(e)=>handleChange(e)} />
                         </div>
                         <div className="form-inputs">
-                            <label>Weight</label>
+                            <label>Weight(kg)</label>
                             <input type="text" name="weight" value={aiData.weight} onChange={(e)=>handleChange(e)} />
                         </div>
                         <div className="form-inputs">
-                            <label>Height</label>
+                            <label>Height(cm)</label>
                             <input type="text" name="height" value={aiData.height} onChange={(e)=>handleChange(e)} />
                         </div>
                         <div className="first-page-ctas">

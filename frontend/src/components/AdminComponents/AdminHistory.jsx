@@ -45,6 +45,8 @@ function AdminHistory() {
                 <CircularProgress color="secondary" />
             </Backdrop>
             <div>
+                <h1>Your Patients' Prescriptions</h1>
+                <hr style={{ border: "2px solid #B7EAE1" }} />
                 {data.map((item, index) => {
                     return (
                         <Prescription

@@ -8,12 +8,12 @@ function UserPanel() {
     const [user, setUser] = useState({});
     const [isLoading, setLoading] = useState(false);
 
-    const fetchUserDetails = async() => {
+    const fetchUserDetails = async () => {
         setLoading(true);
         const userInfo = JSON.parse(localStorage.getItem("patient"));
         try {
             const response = await fetch("http://localhost:5000/user", {
-                method:"GET",
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     "authorization": `Patient ${userInfo.token}`
@@ -27,7 +27,7 @@ function UserPanel() {
             console.error(error);
         }
     }
-    
+
     useEffect(() => {
         fetchUserDetails();
     }, []);
@@ -39,11 +39,18 @@ function UserPanel() {
                     <img id="user-profile" src={user.picturePath} alt="Profile Picture" />
                 </div>
                 <div className="user-panel-details">
-                    <p><strong>{user.name}</strong></p>
-                    <p><strong> {user.username}</strong></p>
-                    <p>DOB: <strong>{user.DOB}</strong></p>
-                    <p>Mob No: <strong>{user.Mob}</strong></p>
-                    <p>Email Id: <strong>{user.email}</strong></p>
+                    <p>Name: <strong>{user.name}</strong></p>
+                    <p>Aadhar Id: <strong> {user.username}</strong></p>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <p>DOB: <strong>{user.DOB ? user.DOB : "Not available"}</strong></p>
+                        <p>Gender: <strong>{user.gender ? user.gender : "Not available"}</strong></p>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <p>Blood Group: <strong>{user.blood ? user.blood : "Not available"}</strong></p>
+                        <p>Mob: <strong>{user.Mob}</strong></p>
+                    </div>
+                </div>
+                <div style={{ textAlign: "center", marginBottom: "10px" }}>
                     <Button id="panel-logout-btn">
                         Logout
                     </Button>

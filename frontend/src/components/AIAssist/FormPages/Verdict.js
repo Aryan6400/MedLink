@@ -4,23 +4,39 @@ import "./Pages.css";
 import { useEffect, useState } from "react";
 
 function Verdict() {
-    const { setPage } = usePage();
+    const { setPage, aiData, symptoms } = usePage();
     const [isLoading, setLoading] = useState(false);
-    const [verdict, setVerdict] = useState([
-        {
-            name:"Maleria",
-            prob:"70%"
-        },
-        {
-            name:"Tubercolosis",
-            prob:"24%"
+    const [verdict, setVerdict] = useState([]);
+
+    const predictDisease = async() => {
+        setLoading(true);
+        let text = `${aiData.age} years old ${aiData.gender}, ${aiData.hyperTension=='yes' ? "hypertension, " : ""}${aiData.diabetes=='yes' ? "diabetes, " : ""}${aiData.anxiety=='yes' ? "anxiety, " : ""}${aiData.asthama=='yes' ? "asthama, " : ""}recently diagnosed with ${aiData.recentDiagnosis}, ${aiData.alcohol=='yes'? "drinks alcohol, " : ""}suffering from`
+        symptoms.map((el, index)=>{
+            if(index==0) text=text+" "+el;
+            else text=text+", "+el;
+        })
+        console.log(text);
+        try {
+            const response = await fetch("http://localhost:5000/predict", {
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body:JSON.stringify({text:text, symptoms:symptoms}),
+            })
+            const result = await response.json();
+            console.log(result);
+            setVerdict(result.slice(0,3));
+            setLoading(false);
+        } catch (error) {
+            setLoading(false)
+            console.error(error);
         }
-    ]);
+    }
 
     useEffect(()=>{
-        // API for AI disease predictor
-    },[])
-
+        predictDisease();
+    },[]);
 
     return (
         <div className="first-page">
@@ -30,9 +46,9 @@ function Verdict() {
                     <div className="verdict-card-box" style={{ display: "flex", flexDirection: "column", gap: "20px", alignItems: "center", justifyContent: "center" }}>
                         {verdict.length>0 && !isLoading && verdict.map(el => {
                             return (
-                                <div className="verdict-card" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                    <span>{el.name}</span>
-                                    <span>{el.prob}</span>
+                                <div className="verdict-card" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap:"10px" }}>
+                                    <span style={{textAlign:"left"}}>{el.label}</span>
+                                    <span>{el.score.toFixed(2)}%</span>
                                 </div>
                             )
                         })}
@@ -40,7 +56,7 @@ function Verdict() {
                         {isLoading && <h4>Predicting...</h4>}
                     </div>
                     <div className="first-page-ctas">
-                        <Button onClick={() => setPage(0)}>Predict Again</Button>
+                        <Button onClick={()=>setPage(prev=>prev-1)}>Predict Again</Button>
                         <Button onClick={() => { alert("Future Update!") }}>Find the best doctor for you</Button>
                     </div>
                 </div>

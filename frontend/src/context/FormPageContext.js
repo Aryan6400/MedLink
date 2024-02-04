@@ -9,7 +9,7 @@ function FormPageProvider({children}){
         gender: "",
         weight: "",
         height: "",
-        region: "",
+        city: "",
         smoking: "",
         alcohol: "",
         recentDiagnosis: "",
