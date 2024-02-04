@@ -26,7 +26,7 @@ async function register(req, res){
             picturePath,
         })
         const savedUser = await newUser.save();
-        const token = jwt.sign({id: savedUser._id}, process.env.USER_SECRET, {expiresIn:"12hr"})
+        const token = jwt.sign({id: savedUser._id}, process.env.USER_SECRET, {expiresIn:"24hr"})
         res.status(201).json({token: token, user: savedUser});
     } catch(err){
         res.status(500).json({message: err.message})
