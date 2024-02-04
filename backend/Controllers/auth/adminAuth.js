@@ -40,7 +40,7 @@ async function adminLogin(req, res) {
         const passwordMatched = await bcrypt.compare(password, foundAdmin.password);
         if (!passwordMatched) return res.status(400).json({message: "Invalid Credentials!"});
 
-        const token = jwt.sign({ id: foundAdmin._id }, process.env.ADMIN_SECRET)
+        const token = jwt.sign({ id: foundAdmin._id }, process.env.ADMIN_SECRET, {expiresIn:"24hr"})
         res.status(200).json({token: token, admin: foundAdmin});
     } catch (err) {
         res.status(500).json({message: err.message});
