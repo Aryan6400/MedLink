@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { RadioGroup, Radio, Button, FormControlLabel, FormGroup } from '@mui/material';
+import { RadioGroup, Radio, Button, FormControlLabel, FormGroup, Backdrop, CircularProgress } from '@mui/material';
 import MuiTextField from '@mui/material/TextField';
 import { useAdminInfo } from "../../context/AdminInfoContext";
 
 
 function EditForm(props) {
     const [isLoading, setLoading] = useState(false);
-    const {setAdminInfo} = useAdminInfo();
+    const { setAdminInfo } = useAdminInfo();
     const [admin, setAdmin] = useState({
         name: props.admin.name ? props.admin.name : "",
         hospitalId: props.admin.hospitalId ? props.admin.hospitalId : "",
@@ -27,18 +27,18 @@ function EditForm(props) {
         });
     }
 
-    const onSubmit = async() => {
+    const onSubmit = async () => {
         setLoading(true);
         const adminInfo = JSON.parse(localStorage.getItem("admin"));
         console.log(adminInfo);
         try {
             const response = await fetch("https://medlink-ugwj.onrender.com/update-admin", {
-                method:"PATCH",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
                     "authorization": `Admin ${adminInfo.token}`
                 },
-                body:JSON.stringify(admin),
+                body: JSON.stringify(admin),
             })
             const result = await response.json();
             setAdminInfo(result);
@@ -56,66 +56,74 @@ function EditForm(props) {
     }
 
     return (
-        <div>
-            <form className="edit-form">
-                <div className='name-div'>
-                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Name" name="name" value={admin.name} />
-                </div>
-                <div className='name-div'>
-                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Hospital Id" name="hospitalId" value={admin.hospitalId} />
-                </div>
-                <div className='name-div'>
-                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Mobile No" name="Mob" value={admin.Mob} />
-                </div>
-                <FormGroup className='gender-div'>
-                    <label>Gender: </label>
-                    <RadioGroup
-                        name="gender"
-                        
-                    >
-                        <div className='radio-btns'>
-                            <FormControlLabel
-                                value="Male"
-                                control=<Radio />
-                                label="Male" onChange={handleChange}
-                                className='radio'
-                            />
-                            <FormControlLabel
-                                value="Female"
-                                control=<Radio />
-                                label="Female" onChange={handleChange}
-                                className='radio'
-                            />
-                            <FormControlLabel
-                                value="other"
-                                control=<Radio />
-                                label="Rather Not Say" onChange={handleChange}
-                                className='radio'
-                            />
-                        </div>
-                    </RadioGroup>
-                </FormGroup>
-                <div className='name-div'>
-                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Age" name="age" value={admin.age} />
-                </div>
-                <div className='address-div'>
-                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Specialization" name="specialization" value={admin.specialization} />
-                </div>
-                <div className='name-div'>
-                    <MuiTextField className="edit-profile-input" onChange={handleChange} label="Degree" name="degree" value={admin.degree} />
-                </div>
-                <div className='submit-div'>
-                    <Button onClick={onSubmit} id='submit-btn'>
-                        Update
-                    </Button>
-                </div>
-                <div className='close-div'>
-                    <Button onClick={Close} id='close-btn'>
-                        Close
-                    </Button>
-                </div>
-            </form>
-        </div>
+        <>
+            <Backdrop
+                sx={{ color: "#fff", zIndex: 5 }}
+                open={isLoading}
+            >
+                <CircularProgress color="secondary" />
+            </Backdrop>
+            <div>
+                <form className="admin-edit-form">
+                    <div className='name-div'>
+                        <MuiTextField className="edit-profile-input" onChange={handleChange} label="Name" name="name" value={admin.name} />
+                    </div>
+                    <div className='name-div'>
+                        <MuiTextField className="edit-profile-input" onChange={handleChange} label="Hospital Id" name="hospitalId" value={admin.hospitalId} />
+                    </div>
+                    <div className='name-div'>
+                        <MuiTextField className="edit-profile-input" onChange={handleChange} label="Mobile No" name="Mob" value={admin.Mob} />
+                    </div>
+                    <FormGroup className='gender-div'>
+                        <label>Gender: </label>
+                        <RadioGroup
+                            name="gender"
+
+                        >
+                            <div className='radio-btns'>
+                                <FormControlLabel
+                                    value="Male"
+                                    control=<Radio />
+                                    label="Male" onChange={handleChange}
+                                    className='radio'
+                                />
+                                <FormControlLabel
+                                    value="Female"
+                                    control=<Radio />
+                                    label="Female" onChange={handleChange}
+                                    className='radio'
+                                />
+                                <FormControlLabel
+                                    value="other"
+                                    control=<Radio />
+                                    label="Rather Not Say" onChange={handleChange}
+                                    className='radio'
+                                />
+                            </div>
+                        </RadioGroup>
+                    </FormGroup>
+                    <div className='name-div'>
+                        <MuiTextField className="edit-profile-input" onChange={handleChange} label="Age" name="age" value={admin.age} />
+                    </div>
+                    <div className='address-div'>
+                        <MuiTextField className="edit-profile-input" onChange={handleChange} label="Specialization" name="specialization" value={admin.specialization} />
+                    </div>
+                    <div className='name-div'>
+                        <MuiTextField className="edit-profile-input" onChange={handleChange} label="Degree" name="degree" value={admin.degree} />
+                    </div>
+                    <div className='admin-submit-div'>
+                        <Button onClick={onSubmit} id='submit-btn'>
+                            Update
+                        </Button>
+                    </div>
+                    <div className='admin-close-div'>
+                        <Button onClick={Close} id='close-btn'>
+                            Close
+                        </Button>
+                    </div>
+                </form>
+            </div>
+        </>
     )
 }
 

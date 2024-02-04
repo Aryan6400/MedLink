@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@mui/material";
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import "./profile.css"
 import Fade from '@mui/material/Fade';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import { useUserInfo } from "../../context/UserInfoContext";
@@ -21,6 +21,7 @@ function ProfilePicture({ imgUrl }) {
     function logout() {
         if (patient) localStorage.removeItem("patient");
         else if (admin) localStorage.removeItem("admin");
+        localStorage.removeItem("timestamp");
         setAdmin(false);
         setPatient(false);
         navigate("/login");

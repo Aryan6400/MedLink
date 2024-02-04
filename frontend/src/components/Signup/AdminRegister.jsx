@@ -1,18 +1,15 @@
 import { Formik, Form, Field } from 'formik';
-import { Button, Box, Paper, TextField } from '@mui/material';
+import { Button, Paper } from '@mui/material';
 import MuiTextField from '@mui/material/TextField';
 import Grow from '@mui/material/Grow';
 import { Link, useNavigate } from 'react-router-dom';
 import "./signup.css"
 import { useState } from 'react';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useAuth } from '../../context/AuthContext';
 
 function AdminRegister() {
-    const [showPassword, setShowPassword] = useState(false);
     const {setAdmin} = useAuth();
     const navigate = useNavigate();
     const validate = (values) => {
@@ -96,10 +93,13 @@ function AdminRegister() {
             const result = await res.json();
             onSubmitProps.resetForm();
             if(result.admin){
+                const currentTimestamp = new Date();
+                const isoString = currentTimestamp.toISOString();
+                localStorage.setItem("timestamp", JSON.stringify(isoString));
                 localStorage.setItem("admin", JSON.stringify(result));
                 setAdmin(true);
                 setLoading(false);
-                navigate("/admin");
+                navigate("/admin-scripts");
             }
             else{
                 setLoading(false);
@@ -140,9 +140,7 @@ function AdminRegister() {
                                     </div>
                                     <div className='name-div'>
                                         <div className='password-div'>
-                                            <Field as={MuiTextField} type={showPassword ? "text" : "password"} className="input" label="Password" name="password" onBlur={() => setFieldTouched("password", true, true)} />
-                                            {showPassword && <VisibilityOffIcon onClick={() => setShowPassword(false)} />}
-                                            {!showPassword && <VisibilityIcon onClick={() => setShowPassword(true)} />}
+                                            <Field as={MuiTextField} type="password" className="input" label="Password" name="password" onBlur={() => setFieldTouched("password", true, true)} />
                                         </div>
                                         {errors.password && touched.password ? <div className='error'>{errors.password}</div> : null}
                                     </div>

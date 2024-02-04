@@ -4,13 +4,10 @@ import MuiTextField from '@mui/material/TextField';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Backdrop, CircularProgress } from "@mui/material";
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import "./login.css"
 import { useAuth } from '../../context/AuthContext';
 
 function Login() {
-    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const [isLoading, setLoading] = useState(false);
     const {setPatient} = useAuth();
@@ -48,10 +45,13 @@ function Login() {
             const result = await res.json();
             onSubmitProps.resetForm();
             if(result.user){
+                const currentTimestamp = new Date();
+                const isoString = currentTimestamp.toISOString();
+                localStorage.setItem("timestamp", JSON.stringify(isoString));
                 localStorage.setItem("patient", JSON.stringify(result));
                 setPatient(true);
                 setLoading(false);
-                navigate("/home");
+                navigate("/patient-scripts");
             }
             else{
                 setLoading(false);
@@ -83,9 +83,7 @@ function Login() {
                                 </div>
                                 <div className='name-div'>
                                     <div className='password-div'>
-                                        <Field as={MuiTextField} type={showPassword ? "text" : "password"} className="input" label="Password" name="password" onBlur={() => setFieldTouched("password", true, true)} />
-                                        {showPassword && <VisibilityOffIcon onClick={() => setShowPassword(false)} />}
-                                        {!showPassword && <VisibilityIcon onClick={() => setShowPassword(true)} />}
+                                        <Field as={MuiTextField} type="password" className="input" label="Password" name="password" onBlur={() => setFieldTouched("password", true, true)} />
                                     </div>
                                     {errors.password && touched.password ? <div className='error'>{errors.password}</div> : null}
                                 </div>

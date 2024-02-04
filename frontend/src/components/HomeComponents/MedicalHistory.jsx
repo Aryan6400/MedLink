@@ -1,5 +1,5 @@
 import Prescription from "./Prescription";
-import database from "../database";
+import { Backdrop, CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
 
 function MedicalHistory() {
@@ -36,18 +36,26 @@ function MedicalHistory() {
     }
 
     return (
-        <div>
-            <h1>Your Prescriptions</h1>
-            <hr style={{ border: "2px solid #B7EAE1" }} />
-            {data.map((item, index) => {
-                return (
-                    <Prescription
-                        key={index}
-                        item={item}
-                    />
-                );
-            })}
-        </div>
+        <>
+            <Backdrop
+                sx={{ color: "#fff", zIndex: 5 }}
+                open={isLoading}
+            >
+                <CircularProgress color="secondary" />
+            </Backdrop>
+            <div>
+                <h1>Your Prescriptions</h1>
+                <hr style={{ border: "2px solid #B7EAE1" }} />
+                {data.map((item, index) => {
+                    return (
+                        <Prescription
+                            key={index}
+                            item={item}
+                        />
+                    );
+                })}
+            </div>
+        </>
     )
 }
 

@@ -1,31 +1,52 @@
 .prescription-details{
     padding: 10px 15px;
 }
-
 .expanded-details{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
 }
-
 .expanded-details p{
     margin: 5px 15px;
 }
-
 .first-line{
     grid-area: 1/1/2/3;
 }
-
 .toggle-text {
     padding: 0;
     margin: 0px;
     cursor: pointer;
     color: #D69C2F;
 }
-
 .toggle-text-icon{
     color: #D69C2F;
     margin: 0px;
+    cursor: pointer;
+}
+.add-dropzone{
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 2px;
+    grid-area: 7/2/8/3;
+}
+.close-prescription-div {
+    margin-top: 5px;
+    grid-area: 8/2/9/3;
+}
+.prescription-card{
+    box-shadow: 0 0 3px rgb(173, 173, 173);
+    margin-bottom: 40px;
+    border-radius: 5px;
+    background-color: #F7F7F7;
+}
+#image{
+    text-align: center;
+}
+.prescription-card img{
+    width: 80%;
+    height: 80%;
+}
+.toggle-btn{
     cursor: pointer;
 }

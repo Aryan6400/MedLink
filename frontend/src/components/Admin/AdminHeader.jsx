@@ -8,6 +8,7 @@ function AdminHeader() {
   const logout = () => {
     if(patient) localStorage.removeItem("patient");
     else if(admin) localStorage.removeItem("admin");
+    localStorage.removeItem("timestamp")
     setAdmin(false);
     setPatient(false);
     navigate("/login");
@@ -16,12 +17,12 @@ function AdminHeader() {
   return (
     <header>
       <div className="header-bar">
-        <h1 className="head"><Link className="head-link" to={!admin ? "/home" : "/admin"}>MedLink</Link></h1>
+        <h1 className="head"><Link className="head-link" to="/">MedLink</Link></h1>
         <div className="navbar">
           <ul className="navbar-list">
-            <li className="nav-items">
-              <Link className="nav-links" to="/admin">Home</Link>
-            </li>
+            {admin && <li className="nav-items">
+              <Link className="nav-links" to="/admin-scripts">MEDScript</Link>
+            </li>}
             <li className="nav-items">
               <Link className="nav-links" to="/about">About</Link>
             </li>
@@ -29,7 +30,7 @@ function AdminHeader() {
               <Link className="nav-links" to="/admin-profile">Profile</Link>
             </li>}
             {!admin && <li className="nav-items">
-              <Link className="nav-links" to="/SignUp">SignUp</Link>
+              <Link className="nav-links" to="/login">Login</Link>
             </li>}
             {admin && <li className="nav-items">
               <Link onClick={logout} className="nav-links" to="/Login">LogOut</Link>

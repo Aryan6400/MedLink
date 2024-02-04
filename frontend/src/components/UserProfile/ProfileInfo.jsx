@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./profile.css"
 import EditForm from "./EditForm";
 import PanToolAltOutlinedIcon from '@mui/icons-material/PanToolAltOutlined';

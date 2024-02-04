@@ -4,13 +4,14 @@ import { useAuth } from "../../context/AuthContext";
 import { usePage } from "../../context/FormPageContext";
 
 function Header() {
-  const {patient, setPatient, admin, setAdmin} = useAuth();
-  const {setPage} = usePage();
+  const { patient, setPatient, admin, setAdmin } = useAuth();
+  const { setPage } = usePage();
   const navigate = useNavigate();
 
   function logout() {
-    if(patient) localStorage.removeItem("patient");
-    else if(admin) localStorage.removeItem("admin");
+    if (patient) localStorage.removeItem("patient");
+    else if (admin) localStorage.removeItem("admin");
+    localStorage.removeItem("timestamp");
     setAdmin(false);
     setPatient(false);
     navigate("/login");
@@ -22,14 +23,14 @@ function Header() {
         <h1 className="head"><Link to="/" className="head-link">MedLink</Link></h1>
         <div className="navbar">
           <ul className="navbar-list">
-          <li className="nav-items">
-              <Link className="nav-links" to="/home">Home</Link>
-            </li>
+            {patient && <li className="nav-items">
+              <Link className="nav-links" to="/patient-scripts">MEDScript</Link>
+            </li>}
             <li className="nav-items">
               <Link className="nav-links" to="/about">About</Link>
             </li>
             <li className="nav-items">
-              <span className="nav-links" onClick={()=>{setPage(0); navigate("/ai-assist")}}>AI Assist</span>
+              <span className="nav-links" onClick={() => { setPage(0); navigate("/med-bot") }}>MEDBot</span>
             </li>
             {patient && <li className="nav-items">
               <Link className="nav-links" to="/user-profile">Profile</Link>

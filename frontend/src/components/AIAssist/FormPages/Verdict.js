@@ -52,11 +52,11 @@ function Verdict() {
                                 </div>
                             )
                         })}
-                        {verdict.length==0 && !isLoading && <h2>Failed to predict!</h2>}
-                        {isLoading && <h4>Predicting...</h4>}
+                        {verdict.length==0 && !isLoading && <h2 style={{color:"red"}}>Failed to predict!</h2>}
+                        {isLoading && <h3 style={{color:"#00B1B9"}}>Predicting...</h3>}
                     </div>
                     <div className="first-page-ctas">
-                        <Button onClick={()=>setPage(prev=>prev-1)}>Predict Again</Button>
+                        <Button onClick={()=>setPage(prev=>prev-1)}>Previous</Button>
                         <Button onClick={() => { alert("Future Update!") }}>Find the best doctor for you</Button>
                     </div>
                 </div>

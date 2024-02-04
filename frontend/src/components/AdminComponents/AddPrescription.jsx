@@ -1,6 +1,5 @@
-import { TextField, RadioGroup, Radio, Box, Button, FormControlLabel, FormGroup } from '@mui/material';
+import { Box, Button, Backdrop, CircularProgress } from '@mui/material';
 import MuiTextField from '@mui/material/TextField';
-import { Backdrop, CircularProgress } from "@mui/material";
 import "./prescription.css"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -92,7 +91,7 @@ function AddPrescription() {
                     height: ""
                 })
                 setPic("");
-                navigate("/admin");
+                navigate("/admin-scripts");
                 setLoading(false);
             }
             else {

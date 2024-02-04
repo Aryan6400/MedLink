@@ -21,6 +21,7 @@ function AdminProfilePicture({ imgUrl }) {
     function logout() {
         if (patient) localStorage.removeItem("patient");
         else if (admin) localStorage.removeItem("admin");
+        localStorage.removeItem("timestamp");
         setAdmin(false);
         setPatient(false);
         navigate("/login");

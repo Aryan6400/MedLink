@@ -54,3 +54,35 @@
 .toggle-btn{
     cursor: pointer;
 }
+
+.prescription-details{
+    padding: 10px 15px;
+}
+
+.expanded-details{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.expanded-details p{
+    margin: 5px 15px;
+}
+
+.first-line{
+    grid-area: 1/1/2/3;
+}
+
+.toggle-text {
+    padding: 0;
+    margin: 0px;
+    cursor: pointer;
+    color: #D69C2F;
+}
+
+.toggle-text-icon{
+    color: #D69C2F;
+    margin: 0px;
+    cursor: pointer;
+}

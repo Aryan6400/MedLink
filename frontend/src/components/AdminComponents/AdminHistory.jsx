@@ -1,5 +1,4 @@
 import Prescription from "./Prescription";
-import database from "../database";
 import { useState, useEffect } from "react";
 import { Backdrop, CircularProgress } from "@mui/material";
 
