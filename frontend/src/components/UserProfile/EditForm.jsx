@@ -36,7 +36,7 @@ function EditForm(props) {
         const userInfo = JSON.parse(localStorage.getItem("patient"));
         console.log(userInfo);
         try {
-            const response = await fetch("http://localhost:5000/update-user", {
+            const response = await fetch("https://medlink-ugwj.onrender.com/update-user", {
                 method:"PATCH",
                 headers: {
                     "Content-Type": "application/json",

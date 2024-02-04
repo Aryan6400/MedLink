@@ -12,7 +12,7 @@ function UserPanel() {
         setLoading(true);
         const userInfo = JSON.parse(localStorage.getItem("patient"));
         try {
-            const response = await fetch("http://localhost:5000/user", {
+            const response = await fetch("https://medlink-ugwj.onrender.com/user", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

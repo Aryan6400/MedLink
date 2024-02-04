@@ -86,7 +86,7 @@ function SignUp() {
             picturePath: picture
         }
         try {
-            const res = await fetch("http://localhost:5000/auth/register", {
+            const res = await fetch("https://medlink-ugwj.onrender.com/auth/register", {
                 method: "POST",
                 cache: "no-cache",
                 credentials: "same-origin",

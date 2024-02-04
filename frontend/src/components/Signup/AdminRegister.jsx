@@ -82,7 +82,7 @@ function AdminRegister() {
             picturePath: picture
         }
         try {
-            const res = await fetch("http://localhost:5000/admin/register", {
+            const res = await fetch("https://medlink-ugwj.onrender.com/admin/register", {
                 method: "POST",
                 cache: "no-cache",
                 credentials: "same-origin",

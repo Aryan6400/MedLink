@@ -72,7 +72,7 @@ function AddPrescription() {
             picturePath: picture
         }
         try {
-            const savedPrescriptionResponse = await fetch("http://localhost:5000/admin/create", {
+            const savedPrescriptionResponse = await fetch("https://medlink-ugwj.onrender.com/admin/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

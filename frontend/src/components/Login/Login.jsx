@@ -34,7 +34,7 @@ function Login() {
     const onSubmit = async (values, onSubmitProps) => {
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:5000/auth/login", {
+            const res = await fetch("https://medlink-ugwj.onrender.com/auth/login", {
                 method: "POST",
                 cache: "no-cache",
                 credentials: "same-origin",

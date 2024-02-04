@@ -17,7 +17,7 @@ function AdminHistory() {
         const adminInfo = JSON.parse(localStorage.getItem("admin"));
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:5000/admin/history", {
+            const response = await fetch("https://medlink-ugwj.onrender.com/admin/history", {
                 method: "GET",
                 cache: "no-cache",
                 credentials: "same-origin",

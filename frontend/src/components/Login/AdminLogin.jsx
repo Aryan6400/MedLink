@@ -32,7 +32,7 @@ function AdminLogin() {
     const onSubmit = async(values, onSubmitProps) => {
         setLoading(true);
         try {
-            const res = await fetch("http://localhost:5000/admin/login", {
+            const res = await fetch("https://medlink-ugwj.onrender.com/admin/login", {
                 method: "POST",
                 cache: "no-cache",
                 credentials: "same-origin",

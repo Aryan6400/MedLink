@@ -56,7 +56,7 @@ function AdminProfilePicture({ imgUrl }) {
         setLoading(true);
         const adminInfo = JSON.parse(localStorage.getItem("admin"));
         try {
-            const response = await fetch("http://localhost:5000/update-admin-picture", {
+            const response = await fetch("https://medlink-ugwj.onrender.com/update-admin-picture", {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

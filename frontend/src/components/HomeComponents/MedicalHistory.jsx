@@ -15,7 +15,7 @@ function MedicalHistory() {
         const userInfo = JSON.parse(localStorage.getItem("patient"));
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:5000/user/history", {
+            const response = await fetch("https://medlink-ugwj.onrender.com/user/history", {
                 method: "GET",
                 cache: "no-cache",
                 credentials: "same-origin",

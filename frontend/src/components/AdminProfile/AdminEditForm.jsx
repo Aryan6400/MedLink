@@ -32,7 +32,7 @@ function EditForm(props) {
         const adminInfo = JSON.parse(localStorage.getItem("admin"));
         console.log(adminInfo);
         try {
-            const response = await fetch("http://localhost:5000/update-admin", {
+            const response = await fetch("https://medlink-ugwj.onrender.com/update-admin", {
                 method:"PATCH",
                 headers: {
                     "Content-Type": "application/json",

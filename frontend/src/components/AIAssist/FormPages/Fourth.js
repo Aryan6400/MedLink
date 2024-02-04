@@ -18,7 +18,7 @@ function Fourth() {
         if (e.target.value == "") return;
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/search-symptoms?search=${e.target.value}`, {
+            const response = await fetch(`https://medlink-ugwj.onrender.com/search-symptoms?search=${e.target.value}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
