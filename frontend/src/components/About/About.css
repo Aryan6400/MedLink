@@ -1,10 +1,75 @@
 .about-container{
     display: flex;
+    flex-direction: column;
+    gap: 20px;
     justify-content: center;
     align-items: center;
     margin: auto;
-    margin-top: 4rem;
-    padding-bottom: 103px;
+    padding: 0 0 103px;
+    /* position: relative; */
+}
+
+.about-page-img{
+    background-image: url("../../../public/images/Landing.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: -1;
+}
+
+.about-details{
+    position: relative;
+    width: 100%;
+}
+
+.about-overview{    
+    text-align: center;
+    max-width: 900px;
+    margin: 6rem auto 100px;
+}
+
+.about-overview h2{
+    font-size: 2.5rem;
+    line-height: 50px;
+    font-weight: 500;
+}
+
+.about-overview p{
+    font-size: 18px;
+    line-height: 28px;
+}
+
+.about-features{
+    text-align: left;
+    margin: auto;
+    max-width: 900px;
+    margin-bottom: 6rem;
+}
+
+.about-features h2{
+    font-size: 2.2rem;
+    line-height: 40px;
+    font-weight: 500;
+}
+
+.about-feature{
+    margin-bottom: 40px;
+}
+
+.about-feature h4{
+    font-weight: 500;
+    margin: 10px auto;
+    line-height: 15px;
+    font-size: 1.4rem;
+}
+
+.about-feature ol li{
+    font-size: 1.1rem;
+    line-height: 30px;
 }
 
 .about-cards{
@@ -13,7 +78,7 @@
     align-items: center;
     gap: 2rem;
     flex-wrap: wrap;
-    width: 85%;
+    padding: 0 93px 50px;
 }
 
 .about-card{
